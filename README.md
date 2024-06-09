@@ -1,9 +1,9 @@
 # Squads module for AllianceAuth.<a name="aa-squads"></a>
 
-[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/Geuthur/aa-ledger/master.svg)](https://results.pre-commit.ci/latest/github/Geuthur/aa-squads/master)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/Geuthur/aa-squads/master.svg)](https://results.pre-commit.ci/latest/github/Geuthur/aa-squads/master)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![Tests](https://github.com/Geuthur/aa-ledger/actions/workflows/autotester.yml/badge.svg)](https://github.com/Geuthur/aa-squads/actions/workflows/autotester.yml)
-[![codecov](https://codecov.io/gh/Geuthur/aa-ledger/graph/badge.svg?token=5CWREOQKGZ)](https://codecov.io/gh/Geuthur/aa-squads)
+[![Tests](https://github.com/Geuthur/aa-squads/actions/workflows/autotester.yml/badge.svg)](https://github.com/Geuthur/aa-squads/actions/workflows/autotester.yml)
+[![codecov](https://codecov.io/gh/Geuthur/aa-squads/graph/badge.svg?token=5CWREOQKGZ)](https://codecov.io/gh/Geuthur/aa-squads)
 
 - [AA Squads](#aa-ledger)
   - [Features](#features)
