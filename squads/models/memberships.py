@@ -23,7 +23,7 @@ class Memberships(models.Model):
     has_required_skills = models.BooleanField(default=False)
     joined_at = models.DateTimeField(auto_now_add=True)
     application_id = models.CharField(
-        max_length=12, default=generate_unique_id, unique=True
+        max_length=12, default=generate_unique_id, unique=True, blank=True
     )
 
     def __str__(self) -> str:

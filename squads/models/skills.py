@@ -37,6 +37,7 @@ class SkillSetFilter(BaseFilter):
         help_text=_(
             "Users must possess the selected skill sets with at least <strong>one</strong> character."
         ),
+        related_name="squads_skill_sets",
     )
 
     def check_skill(self, user: User):
