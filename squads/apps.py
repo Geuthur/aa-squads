@@ -7,6 +7,7 @@ from django.apps import AppConfig
 from squads import __version__
 
 
+# pylint: disable=unused-import, import-outside-toplevel
 class SquadsConfig(AppConfig):
     """App Config"""
 
@@ -15,3 +16,6 @@ class SquadsConfig(AppConfig):
     name = "squads"
     label = "squads"
     verbose_name = f"Squads v{__version__}"
+
+    def ready(self):
+        import squads.signals
