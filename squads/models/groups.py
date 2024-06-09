@@ -9,6 +9,7 @@ from django.utils.translation import gettext_lazy as _
 from allianceauth.authentication.models import User
 
 from squads.hooks import get_extension_logger
+from squads.managers import GroupsManager
 from squads.view_helpers.core import generate_unique_id
 
 logger = get_extension_logger(__name__)
@@ -27,6 +28,8 @@ class Groups(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     image = models.ImageField(upload_to="squads/groups_images/", blank=True, null=True)
+
+    objects = GroupsManager()
 
     def __str__(self) -> str:
         return str(self.name)

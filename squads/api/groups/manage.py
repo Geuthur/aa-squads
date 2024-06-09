@@ -21,12 +21,9 @@ class ManageApiEndpoints:
             tags=self.tags,
         )
         def get_pendings(request, group_id: int):
-            groups = Groups.objects.filter(owner=request.user)
+            groups = Groups.objects.visible_to(request.user)
 
             group_ids = [group.pk for group in groups]
-
-            if not groups:
-                return 403, "Permission Denied"
 
             if group_id == 0:
                 pending_groups = Pending.objects.filter(group__in=group_ids)
@@ -56,12 +53,9 @@ class ManageApiEndpoints:
             tags=self.tags,
         )
         def get_members(request, group_id: int):
-            groups = Groups.objects.filter(owner=request.user)
+            groups = Groups.objects.visible_to(request.user)
 
             group_ids = [group.pk for group in groups]
-
-            if not groups:
-                return 403, "Permission Denied"
 
             if group_id == 0:
                 membership_groups = Memberships.objects.filter(group__in=group_ids)
@@ -91,12 +85,9 @@ class ManageApiEndpoints:
             tags=self.tags,
         )
         def get_squads(request, group_id: int):
-            groups = Groups.objects.filter(owner=request.user)
+            groups = Groups.objects.visible_to(request.user)
 
             group_ids = [group.pk for group in groups]
-
-            if not groups:
-                return 403, "Permission Denied"
 
             if group_id == 0:
                 manage_groups = Groups.objects.filter(pk__in=group_ids)
