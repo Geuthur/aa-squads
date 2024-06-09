@@ -5,7 +5,7 @@
 [![Checks](https://github.com/Geuthur/aa-squads/actions/workflows/autotester.yml/badge.svg)](https://github.com/Geuthur/aa-squads/actions/workflows/autotester.yml)
 [![codecov](https://codecov.io/gh/Geuthur/aa-squads/graph/badge.svg?token=5CWREOQKGZ)](https://codecov.io/gh/Geuthur/aa-squads)
 
-- [AA Squads](#aa-ledger)
+- [AA Squads](#aa-squads)
   - [Features](#features)
   - [Upcoming](#upcoming)
   - [Installation](#features)
@@ -23,7 +23,6 @@
 - Req. Skills Check
 - Html Supportive Description
 - Overview which User has Req. Skills for Skillsets
--
 
 ## Upcoming<a name="upcoming"></a>
 
@@ -33,7 +32,7 @@
 ## Installation<a name="installation"></a>
 
 > \[!NOTE\]
-> AA Ledger needs at least Alliance Auth v4.0.0
+> AA Squads needs at least Alliance Auth v4.0.0
 > Please make sure to update your Alliance Auth before you install this APP
 
 ### Step 1 - Install the Package<a name="step1"></a>
@@ -48,10 +47,9 @@ pip install aa-squads
 
 Configure your Alliance Auth settings (`local.py`) as follows:
 
-- Add `'allianceauth.corputils',` to `INSTALLED_APPS`
 - Add `'eveuniverse',` to `INSTALLED_APPS`
 - Add `'memberaudit',` to `INSTALLED_APPS`
-- Add `'ledger',` to `INSTALLED_APPS`
+- Add `'squads',` to `INSTALLED_APPS`
 
 ### Step 3 - Add the Scheduled Tasks<a name="step3"></a>
 
@@ -66,7 +64,7 @@ python manage.py migrate
 
 ### Step 5 - Setting up Permissions<a name="step5"></a>
 
-With the Following IDs you can set up the permissions for the Ledger
+With the Following IDs you can set up the permissions for the Squads
 
 | ID              | Description                           |                                                                        |
 | :-------------- | :------------------------------------ | :--------------------------------------------------------------------- |
