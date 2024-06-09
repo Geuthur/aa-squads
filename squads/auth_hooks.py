@@ -8,6 +8,10 @@ from allianceauth import hooks
 from allianceauth.services.hooks import MenuItemHook, UrlHook
 
 from squads import app_settings, urls
+from squads.hooks import get_extension_logger
+from squads.models.filters import SkillSetFilter
+
+logger = get_extension_logger(__name__)
 
 
 class SquadsMenuItem(MenuItemHook):
@@ -39,3 +43,9 @@ def register_urls():
     """Register app urls"""
 
     return UrlHook(urls, "squads", r"^squads/")
+
+
+@hooks.register("squads_filters")
+def filters():
+    logger.error("Filters")
+    return [SkillSetFilter]

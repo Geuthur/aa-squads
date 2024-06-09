@@ -6,9 +6,9 @@ from django.shortcuts import get_object_or_404, redirect, render
 
 from squads.forms import CommentForm
 from squads.hooks import get_extension_logger
+from squads.models.filters import SquadGroup
 from squads.models.groups import Groups, Pending
 from squads.models.memberships import Memberships
-from squads.models.skills import GroupSkillFilter
 from squads.views._core import add_info_to_context
 
 logger = get_extension_logger(__name__)
@@ -50,20 +50,10 @@ def view_group(request, group_id):
     comment_form = CommentForm(request.POST or None)
     pending_application = Pending.objects.filter(group=group, user=request.user).first()
     membership = Memberships.objects.filter(user=request.user, group=group).first()
+    filters = SquadGroup.objects.filter(group=group).first()
 
-    req_skills = GroupSkillFilter.objects.filter(group=group)
-    skill_req = True
-
-    # TODO make a helper function to get missing skills displaying to view
-    # Check if any of the required skills are missing
-    for skill in req_skills:
-        if not any(
-            skill_filter.check_skill(request.user)
-            for skill_filter in skill.skill_filters.all()
-        ):
-            skill_req = False
-            break
-    logger.debug("Skill Req: %s", skill_req)
+    # Check all Filters
+    skill_req = filters.check_user(request.user)
 
     if request.method == "POST" and "join_group" in request.POST:
         return redirect("squads:view_group", group_id=group_id)

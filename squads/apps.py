@@ -7,7 +7,7 @@ from django.apps import AppConfig
 from squads import __version__
 
 
-class LedgerConfig(AppConfig):
+class SquadsConfig(AppConfig):
     """App Config"""
 
     default_auto_field = "django.db.models.AutoField"
