@@ -116,8 +116,6 @@ LOGGING["loggers"].update(LOGGING_SQUADS["loggers"])
 ![Screenshot 2024-06-09 164508](https://github.com/Geuthur/aa-squads/assets/761682/c989d2ed-6602-441b-b903-b7f22ecf69c0)
 ![Screenshot 2024-06-09 170318](https://github.com/Geuthur/aa-squads/assets/761682/fd945878-caeb-4d89-8093-885258dc306a)
 
-
-
 > \[!NOTE\]
 > Contributing
 > You want to improve the project?
