@@ -1,5 +1,16 @@
 # Changelog
 
+## \[0.1.3 - 0.1.5\] - 2024-06-09
+
+### Added
+
+- Missing Permissions on Manage Path
+
+### Fixed
+
+- Wrong Naming on Manage Squads
+- Squads module shown with no permission
+
 ## \[0.1.2\] - 2024-06-09
 
 ### Added
