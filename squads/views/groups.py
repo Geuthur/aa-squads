@@ -52,8 +52,10 @@ def view_group(request, group_id):
     membership = Memberships.objects.filter(user=request.user, group=group).first()
     filters = SquadGroup.objects.filter(group=group).first()
 
-    # Check all Filters
-    skill_req = filters.check_user(request.user)
+    skill_req = True
+    if filters:
+        # Check all Filters
+        skill_req = filters.check_user(request.user)
 
     if request.method == "POST" and "join_group" in request.POST:
         return redirect("squads:view_group", group_id=group_id)
