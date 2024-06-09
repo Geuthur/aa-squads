@@ -3,7 +3,7 @@
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/Geuthur/aa-squads/master.svg)](https://results.pre-commit.ci/latest/github/Geuthur/aa-squads/master)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Checks](https://github.com/Geuthur/aa-squads/actions/workflows/autotester.yml/badge.svg)](https://github.com/Geuthur/aa-squads/actions/workflows/autotester.yml)
-[![codecov](https://codecov.io/gh/Geuthur/aa-squads/graph/badge.svg?token=5CWREOQKGZ)](https://codecov.io/gh/Geuthur/aa-squads)
+[![codecov](https://codecov.io/gh/Geuthur/aa-squads/graph/badge.svg?token=yPAkMfj3cD)](https://codecov.io/gh/Geuthur/aa-squads)
 
 - [AA Squads](#aa-squads)
   - [Features](#features)
