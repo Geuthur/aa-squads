@@ -9,6 +9,7 @@ from squads.hooks import get_extension_logger
 from squads.models.groups import Groups, Pending
 from squads.models.memberships import Memberships
 from squads.models.skills import GroupSkillFilter
+from squads.views._core import add_info_to_context
 
 logger = get_extension_logger(__name__)
 
@@ -35,7 +36,11 @@ def broswe_groups(request):
         "membership_ids": membership_ids,
     }
 
-    return render(request, "squads/groups/browse_groups.html", context)
+    return render(
+        request,
+        "squads/groups/browse_groups.html",
+        add_info_to_context(request, context),
+    )
 
 
 @login_required
@@ -63,14 +68,14 @@ def view_group(request, group_id):
     if request.method == "POST" and "join_group" in request.POST:
         return redirect("squads:view_group", group_id=group_id)
 
+    context = {
+        "group": group,
+        "comment_form": comment_form,
+        "pending_application": pending_application,
+        "membership": membership,
+        "skill_req": skill_req,
+    }
+
     return render(
-        request,
-        "squads/groups/view_group.html",
-        {
-            "group": group,
-            "comment_form": comment_form,
-            "pending_application": pending_application,
-            "membership": membership,
-            "skill_req": skill_req,
-        },
+        request, "squads/groups/view_group.html", add_info_to_context(request, context)
     )
