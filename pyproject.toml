@@ -6,7 +6,7 @@ requires = [
 
 [project]
 name = "aa-squads"
-description = "Join Squads with Approve Check"
+description = "Squads plugin app for Alliance Auth"
 readme = "README.md"
 license = { file = "LICENSE" }
 authors = [
