@@ -16,11 +16,11 @@ class GroupsQuerySet(models.QuerySet):
             logger.debug("Returning all Squads for superuser %s.", user)
             return self
 
-        if user.has_perm("squads.admin_access"):
-            logger.debug("Returning all Squads for %s.", user)
+        if user.has_perm("squads.squad_admin"):
+            logger.debug("Returning all Squads for Squad Admin %s.", user)
             return self
 
-        if user.has_perm("squads.group_manager"):
+        if user.has_perm("squads.squad_manager"):
             query = models.Q(owner=user)
             logger.debug("Returning own Squads for %s.", user)
             return self.filter(query)

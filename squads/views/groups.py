@@ -1,6 +1,6 @@
 """Groups views."""
 
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import get_object_or_404, redirect, render
 
@@ -14,6 +14,7 @@ logger = get_extension_logger(__name__)
 
 
 @login_required
+@permission_required("squads.basic_access")
 def broswe_groups(request):
     groups_list = Groups.objects.all()
     membership_ids = Memberships.objects.filter(user=request.user).values_list(
@@ -38,12 +39,7 @@ def broswe_groups(request):
 
 
 @login_required
-def squads_groups(request, group_id):
-    group = get_object_or_404(Groups, id=group_id)
-    return render(request, "squads/group_detail.html", {"group": group})
-
-
-@login_required
+@permission_required("squads.basic_access")
 def view_group(request, group_id):
     group = get_object_or_404(Groups, id=group_id)
     comment_form = CommentForm(request.POST or None)

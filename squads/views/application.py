@@ -1,7 +1,7 @@
 """Manage views."""
 
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import get_object_or_404, redirect
 
 from squads.forms import CommentForm
@@ -13,6 +13,7 @@ logger = get_extension_logger(__name__)
 
 
 @login_required
+@permission_required("squads.basic_access")
 def apply_group(request, group_id):
     group = get_object_or_404(Groups, id=group_id)
     comment_form = CommentForm(request.POST or None)
@@ -35,6 +36,7 @@ def apply_group(request, group_id):
 
 
 @login_required
+@permission_required("squads.basic_access")
 def leave_group(request, group_id):
     group = get_object_or_404(Groups, id=group_id)
     membership = Memberships.objects.filter(user=request.user, group=group).first()

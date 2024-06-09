@@ -19,15 +19,14 @@
 
 ## Features<a name="features"></a>
 
-- Squads with Icons
-- Req. Skills Check
-- Html Supportive Description
-- Overview which User has Req. Skills for Skillsets
+- Detailed Squad Information (html)
+- Squad Filters
+- Overview which User has req. filters
 
 ## Upcoming<a name="upcoming"></a>
 
-- Asset Check (If the User has the Hull of the Ship).
-- Updating squad membership on state change.
+- Asset Filter (If the User has the Hull of the Ship).
+- Updating Squad Membership on state change.
 
 ## Installation<a name="installation"></a>
 
@@ -66,11 +65,11 @@ python manage.py migrate
 
 With the Following IDs you can set up the permissions for the Squads
 
-| ID              | Description                           |                                                                        |
-| :-------------- | :------------------------------------ | :--------------------------------------------------------------------- |
-| `basic_access`  | Can access the Squads module          | All Members with the Permission can access the Squads.                 |
-| `admin_access`  | Can Manage Squads                     | Manage Squads Module.                                                  |
-| `squad_manager` | Can Create Squads & Manage own Squads | Manage Squads like Edit, Create Squads, Approve, Decline Request, etc. |
+| ID              | Description                  |                                                                        |
+| :-------------- | :--------------------------- | :--------------------------------------------------------------------- |
+| `basic_access`  | Can access the Squads module | All Members with the Permission can access the Squads.                 |
+| `squad_manager` | Can Create / Manage Squads   | Manage Squads like Edit, Create Squads, Approve, Decline Request, etc. |
+| `squad_admin`   | Can View All Squads          | Can View all Squads.                                                   |
 
 ### Step 6 - (Optional) Setting up Compatibilies<a name="step6"></a>
 

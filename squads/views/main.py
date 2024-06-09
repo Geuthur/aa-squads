@@ -22,6 +22,7 @@ def squads_membership(request):
 
 
 @login_required
+@permission_required("squads.basic_access")
 def squads_pending(request):
     pending_memberships = Pending.objects.filter(user=request.user, approved=False)
     return render(

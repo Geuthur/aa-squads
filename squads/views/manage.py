@@ -1,7 +1,7 @@
 """Manage views."""
 
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.safestring import mark_safe
@@ -15,6 +15,7 @@ logger = get_extension_logger(__name__)
 
 
 @login_required
+@permission_required("squads.squad_manager")
 @transaction.atomic
 def create_group(request):
     if request.method == "POST":
@@ -34,6 +35,7 @@ def create_group(request):
 
 
 @login_required
+@permission_required("squads.squad_manager")
 @transaction.atomic
 def accept_group(request, application_id):
     pending = get_object_or_404(Pending, application_id=application_id)
@@ -53,7 +55,7 @@ def accept_group(request, application_id):
 
 
 @login_required
-@transaction.atomic
+@permission_required("squads.squad_manager")
 def decline_group(request, application_id):
     pending = get_object_or_404(Pending, application_id=application_id)
     if pending:
@@ -66,6 +68,7 @@ def decline_group(request, application_id):
 
 
 @login_required
+@permission_required("squads.squad_manager")
 def manage_pendings(request):
     manage_memberships = Groups.objects.filter(owner=request.user)
     return render(
@@ -76,6 +79,7 @@ def manage_pendings(request):
 
 
 @login_required
+@permission_required("squads.squad_manager")
 def manage_members(request):
     manage_memberships = Memberships.objects.filter(user=request.user)
     return render(
@@ -86,6 +90,7 @@ def manage_members(request):
 
 
 @login_required
+@permission_required("squads.squad_manager")
 def delete_membership(request, application_id):
     membership = get_object_or_404(Memberships, application_id=application_id)
     if membership:
@@ -98,6 +103,7 @@ def delete_membership(request, application_id):
 
 
 @login_required
+@permission_required("squads.squad_manager")
 def manage_groups(request):
     manage_squads = Groups.objects.filter(owner=request.user)
     return render(
@@ -108,6 +114,7 @@ def manage_groups(request):
 
 
 @login_required
+@permission_required("squads.squad_manager")
 def delete_group(request, group_id):
     group = get_object_or_404(Groups, pk=group_id)
     if group:
@@ -120,6 +127,7 @@ def delete_group(request, group_id):
 
 
 @login_required
+@permission_required("squads.squad_manager")
 def edit_group(request, group_id):
     group_data = get_object_or_404(Groups, pk=group_id)
     if request.method == "POST":

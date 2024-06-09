@@ -39,7 +39,6 @@ class Groups(models.Model):
 
     class Meta:
         default_permissions = ()
-        permissions = (("squad_manager", "Can Manage Squads."),)
 
 
 class Pending(models.Model):
