@@ -5,7 +5,7 @@
     <a class="nav-link" href="{% url 'squads:index' %}">Squads</a>
 </li>
 
-{% if perms.squads.admin_access or perms.squads.group_manager %}
+{% if perms.squads.admin_access or perms.squads.squad_manager %}
 <li class="nav-item">
     <a class="nav-link" href="{% url 'squads:create_group' %}">Create Group</a>
 </li>

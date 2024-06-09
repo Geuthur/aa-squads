@@ -18,5 +18,6 @@ class General(models.Model):
         default_permissions = ()
         permissions = (
             ("basic_access", "Can access this app, Squads."),
-            ("admin_access", "Can Manage Squads."),
+            ("squad_manager", "Can Create / Manage Squads."),
+            ("squad_admin", "Can View All Squads."),
         )

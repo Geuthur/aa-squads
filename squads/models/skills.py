@@ -60,6 +60,3 @@ class GroupSkillFilter(models.Model):
 
     def __str__(self) -> str:
         return str(f"Skill Requirment for {self.group.name}")
-
-    class Meta:
-        default_permissions = ()
