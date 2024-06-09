@@ -1,0 +1,47 @@
+{% extends 'squads/base.html' %}
+{% load i18n %}
+{% load humanize %}
+{% load static %}
+
+{% block squads_menu %}
+    {% include 'squads/manage/menu.html' %}
+{% endblock %}
+
+{% block squads_block %}
+
+<div class="card-title bg-primary rounded-top px-2"><h3>{% translate "Edit Group" %}</h3></div>
+    <div class="card-body">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Update Group</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_javascript %}
+<script src="https://cdn.jsdelivr.net/npm/sceditor@3.2.0/minified/jquery.sceditor.min.js" integrity="sha256-5ydAJSsAxrotju2puy/Mt29sCxXWvgT5FA2gs2cEVkk=" crossorigin="anonymous"></script>
+<script src="{% static 'squads/js/sceditor.min.js' %}"></script>
+<script src="{% static 'squads/js/formats/bbcode.js' %}"></script>
+<script src="{% static 'squads/js/formats/xhtml.js' %}"></script>
+<script type="text/javascript">
+$(function() {
+    var textarea = document.getElementById('id_description');
+    sceditor.create(textarea, {
+        format: 'xhtml',
+        style: '{% static "squads/css/themes/content/default.min.css" %}',
+        toolbar: "bold,italic,underline,strike,subscript,superscript,left,center,right,justify,font,size,color,removeformat,cut,copy,paste,pastetext,bulletlist,orderedlist,table,code,quote,horizontalrule,image,link,unlink,youtube,date,time,ltr,rtl,source",
+        emoticonsEnabled: false
+    });
+});
+</script>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sceditor@3.2.0/minified/themes/default.min.css" integrity="sha256-CCBbOXwjiLPyauJBzn3zIL6V23UTlMViRLztU87GR24=" crossorigin="anonymous">
+{% endblock %}
+
+{% block extra_script %}
+{% endblock %}

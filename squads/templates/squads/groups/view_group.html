@@ -1,0 +1,43 @@
+{% extends 'squads/base.html' %}
+{% load i18n %}
+{% load humanize %}
+{% load static %}
+
+{% block squads_menu %}
+    {% include 'squads/menu.html' with owner=owner %}
+{% endblock %}
+
+{% block squads_block %}
+<div class="card-title bg-primary rounded-top px-2"><h3>{% translate "Group" %}: {{ group.name }}</h3></div>
+<div class="card-body">
+    {{ group.safe_description|safe }}
+    <hr>
+    {% if not pending_application and not membership and skill_req %}
+    <form method="post" action="{% url 'squads:apply_group' group_id=group.id %}" class="d-flex align-items-end" style="gap: 0.5rem;">
+        {% csrf_token %}
+        <div class="mr-2">
+            {{ comment_form.comment }}
+        </div>
+        <button type="submit" name="join_group" class="btn btn-primary">{% translate "Apply" %}</button>
+    </form>
+    {% else %}
+    {% if pending_application %}
+        <button type="button" class="btn btn-warning" disabled>{% translate "Pending Application" %}</button> <br>
+        {% translate 'You Applied since' %} {{ pending_application.created_at|naturaltime }}
+    {% endif %}
+    {% if membership %}
+        <button type="button" class="btn btn-success" disabled>{% translate "Active Membership" %}</button> <br>
+        {% translate 'You Joined since' %} {{ membership.joined_at|naturaltime }} <br>
+        <form method="post" action="{% url 'squads:leave_group' group_id=group.id %}" class="d-flex align-items-end" style="gap: 0.5rem;">
+            {% csrf_token %}
+            <button type="submit" name="leave_group" class="btn btn-danger">{% translate "Leave Squad" %}</button>
+        </form>
+
+    {% endif %}
+    {% endif %}
+    {% if not skill_req %}
+    <button type="button" class="btn btn-warning" disabled>{% translate "Missing Skills" %}</button> <br>
+    {% translate 'You dont the required skills' %}
+    {% endif %}
+</div>
+{% endblock %}

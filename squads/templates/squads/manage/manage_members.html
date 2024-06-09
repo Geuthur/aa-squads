@@ -1,0 +1,88 @@
+{% extends 'squads/base.html' %}
+{% load i18n %}
+{% load humanize %}
+{% load static %}
+
+{% block squads_menu %}
+    {% include 'squads/manage/menu.html' %}
+{% endblock %}
+
+{% block squads_block %}
+
+<div class="bg-primary rounded-top px-2 py-2 mb-4">
+    <h3 class="text-white">{% translate "Manage Members" %}</h3>
+</div>
+<div class="container">
+    <div class="row">
+        <table class="table table-striped table-hover" id="members" style="width: 100%;">
+            <br>
+            <thead>
+                <th class="col-user" style="width: 20%;">User</th>
+                <th class="col-group" style="width: 20%;">Group</th>
+                <th class="col-skills" style="width: 20%;">Req. Skills</th>
+                <th class="col-active" style="width: 20%;">Active</th>
+                <th class="col-joined" style="width: 20%;">Joined</th>
+                <th class="col-actions" style="width: 10%;">Actions</th>
+            </thead>
+
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_javascript %}
+{% include 'bundles/datatables-js-bs5.html' %}
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', function () {
+    // Initialize DataTable
+    var Groups = $('#members').DataTable({
+        ajax: {
+            url: '/squads/api/groups/0/members/',
+            dataSrc: function (data) {
+                return data;
+            },
+        },
+        processing: true,
+        columns: [
+            {data: 'user'},
+            {data: 'group'},
+            {data: 'has_required_skills', render: function(data, type, row) {
+                if (data) {
+                    return '<button class="btn btn-success btn-sm" disabled><i class="fa-solid fa-check"></i></button>';
+                } else {
+                    return '<button class="btn btn-danger btn-sm" disabled><i class="fa-solid fa-ban"></i></button>';
+                }
+            }},
+            {data: 'is_active', render: function(data, type, row) {
+                if (data) {
+                    return '<button class="btn btn-success btn-sm" disabled><i class="fa-solid fa-check"></i></button>';
+                } else {
+                    return '<button class="btn btn-danger btn-sm" disabled><i class="fa-solid fa-ban"></i></button>';
+                }
+            }},
+            {data: 'joined_at'},
+        ],
+        columnDefs: [
+            {
+                targets: 5,
+                sortable: false,
+                render: function (data, type, row) {
+                    var deleteTemplate = "{% url 'squads:delete_membership' '0' %}";
+                    var deleteUrl = deleteTemplate.replace('0', row.application_id);
+                    return '<a href="'+ deleteUrl +'"><button class="btn btn-danger btn-sm" title="Remove"><i class="fa-solid fa-ban"></i></button></a>';
+                },
+            }
+        ]
+    });
+});
+</script>
+{% endblock %}
+
+{% block extra_css %}
+{% endblock %}
+
+{% block extra_script %}
+{% endblock %}

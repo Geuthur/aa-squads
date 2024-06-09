@@ -1,0 +1,37 @@
+{% extends 'allianceauth/base-bs5.html' %}
+{% load i18n %}
+{% block main_css %}
+{% endblock main_css %}
+{% block extra_css %}
+{% endblock extra_css %}
+
+{% block page_title %}Squads{% endblock %}
+
+{% block header_nav_brand %}
+    Squads
+{% endblock header_nav_brand %}
+
+{% block header_nav_collapse_left %}
+
+{% block squads_menu %}
+    {% include 'squads/menu.html' %}
+{% endblock %}
+
+{% endblock header_nav_collapse_left %}
+
+{% block content %}
+
+{% include 'bundles/datatables-css-bs5.html' %}
+
+<div class="card">
+    {% block squads_block %}{% endblock %}
+    <br>
+</div>
+
+{% endblock %}
+
+{% block extra_javascript %}
+{% endblock %}
+
+{% block extra_script %}
+{% endblock %}

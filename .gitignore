@@ -1,0 +1,12 @@
+*.log
+.tox/
+*.old
+__pycache__
+node_modules/
+
+/build/
+/dist/
+.coverage
+.env
+.pypirc
+/coverage.xml

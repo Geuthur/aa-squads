@@ -1,0 +1,19 @@
+{% load i18n %}
+{% load navactive %}
+
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'squads:pending' %}">Pending Requests</a>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'squads:membership' %}">My Memberships</a>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'squads:groups' %}">Browse Squads</a>
+</li>
+{% if perms.squads.admin_access or perms.squads.group_manager %}
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'squads:manage_members' %}">Manage</a>
+</li>
+{% endif %}
