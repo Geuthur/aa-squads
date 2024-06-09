@@ -6,7 +6,7 @@ from django.contrib import admin
 from django.db.models.query import QuerySet
 from django.http.request import HttpRequest
 
-from squads.models.skills import GroupSkillFilter, SkillSetFilter
+from squads.models.filters import SkillSetFilter, SquadFilter, SquadGroup
 
 
 @admin.register(SkillSetFilter)
@@ -30,7 +30,16 @@ class SkillSetFilterAdmin(admin.ModelAdmin):
         return ", ".join(sorted([obj.name for obj in objs]))
 
 
-@admin.register(GroupSkillFilter)
-class GroupFilterAdmin(admin.ModelAdmin):
-    filter_horizontal = ["skill_filters"]
+# pylint: disable=unused-argument
+@admin.register(SquadFilter)
+class SquadFilterAdmin(admin.ModelAdmin):
+    def has_add_permission(self, request, obj=None):
+        return False
+
+    list_display = ["__str__"]
+
+
+@admin.register(SquadGroup)
+class SquadGrouprAdmin(admin.ModelAdmin):
+    filter_horizontal = ["filters"]
     list_display = ["__str__", "enabled"]

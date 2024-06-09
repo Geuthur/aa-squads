@@ -2,7 +2,7 @@
 {% load navactive %}
 
 <li class="nav-item">
-    <a class="nav-link" href="{% url 'squads:pending' %}">Pending Requests</a>
+    <a class="nav-link" href="{% url 'squads:pending' %}">Pending Requests{% if pending_count %} <span class="badge bg-secondary">{{ pending_count }}</span>{% endif %}</a>
 </li>
 
 <li class="nav-item">

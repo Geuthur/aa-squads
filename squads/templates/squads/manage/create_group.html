@@ -9,12 +9,12 @@
 
 {% block squads_block %}
 
-<div class="card-title bg-primary rounded-top px-2"><h3>{% translate "Create Group" %}</h3></div>
+<div class="card-title bg-primary rounded-top px-2"><h3>{% translate "Create Squad" %}</h3></div>
     <div class="card-body">
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Create Group</button>
+            <button type="submit" class="btn btn-primary">Create Squad</button>
         </form>
     </div>
 </div>

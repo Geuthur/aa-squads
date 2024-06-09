@@ -29,7 +29,7 @@ def apply_group(request, group_id):
         messages.success(request, "Your application has been submitted.")
     else:
         messages.error(
-            request, "You do not meet the skill requirements for this group."
+            request, "You do not meet the skill requirements for this Squad."
         )
 
     return redirect("squads:view_group", group_id=group_id)

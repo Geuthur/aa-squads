@@ -27,7 +27,7 @@ def create_group(request):
                 group.image = "squads/groups_images/empty.png"  # Standardbild setzen
             group.owner = request.user
             group.save()  # Save the group to the database before creating related Skills
-            messages.success(request, "Group has been created.")
+            messages.success(request, "Squad has been created.")
             return redirect("squads:groups")
     else:
         form = SquadsGroupForm()

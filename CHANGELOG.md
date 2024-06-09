@@ -1,5 +1,21 @@
 # Changelog
 
+## \[0.1.7\] - 2024-06-09
+
+### Added
+
+- Filter System
+- Badge for Pending Requests
+- Filter Hook
+
+### Removed
+
+- GroupFilter
+
+### Fixed
+
+- Wrong Naming on Pending, Browse Squads
+
 ## \[0.1.3 - 0.1.5\] - 2024-06-09
 
 ### Added

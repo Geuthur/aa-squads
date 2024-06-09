@@ -7,7 +7,8 @@ from django.apps import AppConfig
 from squads import __version__
 
 
-class LedgerConfig(AppConfig):
+# pylint: disable=unused-import, import-outside-toplevel
+class SquadsConfig(AppConfig):
     """App Config"""
 
     default_auto_field = "django.db.models.AutoField"
@@ -15,3 +16,6 @@ class LedgerConfig(AppConfig):
     name = "squads"
     label = "squads"
     verbose_name = f"Squads v{__version__}"
+
+    def ready(self):
+        import squads.signals
