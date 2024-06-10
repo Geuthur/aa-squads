@@ -21,12 +21,13 @@
 
 - Detailed Squad Information (html)
 - Squad Filters
-- Overview which User has req. filters
+- Overview of Members in Squads
 
 ## Upcoming<a name="upcoming"></a>
 
-- Asset Filter (If the User has the Hull of the Ship).
 - Updating Squad Membership on state change.
+- Updating Members State on Filter changes.
+- More Filters.
 
 ## Installation<a name="installation"></a>
 
