@@ -1,0 +1,11 @@
+{% load i18n %}
+{% load humanize %}
+
+{% if pending_application %}
+    <div class="d-flex justify-content-start gap-2">
+        <button type="button" class="btn btn-warning" disabled>{% translate "Pending Application" %}</button>
+        <button type="button" data-group-id="{{ group.id }}" class="btn btn-danger cancel-request-btn">{% translate "Cancel Request" %}</button>
+    </div>
+    <br>
+    {% translate 'You Applied since' %} {{ pending_application.created_at|naturaltime }}
+{% endif %}

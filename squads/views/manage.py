@@ -6,6 +6,7 @@ from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.safestring import mark_safe
 
+from squads.app_settings import SQUADS_EMPTY_IMAGE
 from squads.forms import SquadsGroupForm
 from squads.hooks import get_extension_logger
 from squads.models.groups import Groups, Pending
@@ -19,28 +20,7 @@ logger = get_extension_logger(__name__)
 @login_required
 @permission_required("squads.squad_manager")
 @transaction.atomic
-def create_group(request):
-    if request.method == "POST":
-        form = SquadsGroupForm(request.POST, request.FILES)
-        if form.is_valid():
-            group = form.save(commit=False)
-            group.description = mark_safe(group.description)
-            if not group.image:
-                # Use Static one if empty
-                group.image = "static/squads/groups_images/empty.png"
-            group.owner = request.user
-            group.save()
-            messages.success(request, "Squad has been created.")
-            return redirect("squads:groups")
-    else:
-        form = SquadsGroupForm()
-    return render(request, "squads/manage/create_group.html", {"form": form})
-
-
-@login_required
-@permission_required("squads.squad_manager")
-@transaction.atomic
-def accept_group(request, application_id):
+def manage_application_accept(request, application_id):
     pending = get_object_or_404(Pending, application_id=application_id)
     permission = check_permission(request, pending.group)
 
@@ -67,7 +47,7 @@ def accept_group(request, application_id):
 
 @login_required
 @permission_required("squads.squad_manager")
-def decline_group(request, application_id):
+def manage_application_decline(request, application_id):
     pending = get_object_or_404(Pending, application_id=application_id)
     permission = check_permission(request, pending.group)
 
@@ -172,11 +152,11 @@ def edit_group(request, group_id):
     if request.method == "POST":
         form = SquadsGroupForm(request.POST, request.FILES, instance=group_data)
         if form.is_valid():
-            group = form.save(commit=False)
-            group.description = mark_safe(group.description)
-            if not group.image:
-                group.image = "squads/groups_images/empty.png"
-            group.save()
+            group_edit = form.save(commit=False)
+            group_edit.description = mark_safe(group_edit.description)
+            if not group_edit.image:
+                group_edit.image = SQUADS_EMPTY_IMAGE
+            group_edit.save()
             messages.success(request, f"{group_data.name} has been updated.")
             return redirect("squads:manage_groups")
         messages.error(request, "Something went wrong.")

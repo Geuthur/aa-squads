@@ -1,0 +1,16 @@
+{% load i18n %}
+{% load humanize %}
+
+{% if missing_req and not membership and not pending_application %}
+    <br>
+    <div class="card">
+        <div class="card-header bg-warning text-white">{% translate "Missing Requirements" %}</div><br>
+        <ul>
+            {% for req_list in missing_req %}
+                {% for req in req_list %}
+                    <li>{{ req.type }}: {{ req.name|safe }} {{ req.amount }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    <div>
+{% endif %}

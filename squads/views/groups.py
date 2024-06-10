@@ -1,10 +1,14 @@
 """Groups views."""
 
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.safestring import mark_safe
 
-from squads.forms import CommentForm
+from squads.app_settings import SQUADS_EMPTY_IMAGE
+from squads.forms import CommentForm, SquadsGroupForm
 from squads.hooks import get_extension_logger
 from squads.models.filters import SquadGroup
 from squads.models.groups import Groups, Pending
@@ -12,6 +16,27 @@ from squads.models.memberships import Memberships
 from squads.views._core import add_info_to_context
 
 logger = get_extension_logger(__name__)
+
+
+@login_required
+@permission_required("squads.squad_manager")
+@transaction.atomic
+def create_group(request):
+    if request.method == "POST":
+        form = SquadsGroupForm(request.POST, request.FILES)
+        if form.is_valid():
+            group = form.save(commit=False)
+            group.description = mark_safe(group.description)
+            if not group.image:
+                # Use Static one if empty
+                group.image = SQUADS_EMPTY_IMAGE
+            group.owner = request.user
+            group.save()
+            messages.success(request, "Squad has been created.")
+            return redirect("squads:groups")
+    else:
+        form = SquadsGroupForm()
+    return render(request, "squads/manage/create_group.html", {"form": form})
 
 
 @login_required

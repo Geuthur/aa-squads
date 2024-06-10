@@ -126,7 +126,7 @@ class AssetsFilter(BaseFilter):
 
         missing_assets_string = ", ".join(sorted(missing_assets))
 
-        if missing_assets:
+        if missing_assets and not user_assets.exists():
             missing.append(
                 {
                     "type": "Asset" if len(missing_assets) == 1 else "Asset one of",
@@ -164,13 +164,15 @@ class ShipFilter(BaseFilter):
 
         existing_ship = set()
         if user_ship.exists():
-            existing_ship = set(user_ship.values_list("eve_group__name", flat=True))
+            existing_ship = set(
+                user_ship.values_list("eve_type__eve_group_id__name", flat=True)
+            )
 
         missing_ship = required_ship - existing_ship
 
         missing_ship_string = ", ".join(sorted(missing_ship))
 
-        if missing_ship:
+        if missing_ship and not user_ship.exists():
             missing.append(
                 {"type": "Ship Type", "name": missing_ship_string, "amount": ""}
             )
@@ -218,7 +220,8 @@ class SquadGroup(models.Model):
                     logger.debug("Filter %s is None", check)
                     continue
                 run_test, missing = _filter.check_filter(user)
-                missing_req.append(missing)
+                if missing:
+                    missing_req.append(missing)
             except Exception as e:
                 run_test = False
                 logger.warning("Filter Check Failed: %s", check)

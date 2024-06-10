@@ -5,15 +5,14 @@ from django.views.static import serve
 
 from squads.api import api
 from squads.views.application import apply_group, cancel_group, leave_group
-from squads.views.groups import broswe_groups, view_group
+from squads.views.groups import broswe_groups, create_group, view_group
 from squads.views.main import squads_index, squads_membership, squads_pending
 from squads.views.manage import (
-    accept_group,
-    create_group,
-    decline_group,
     delete_group,
     delete_membership,
     edit_group,
+    manage_application_accept,
+    manage_application_decline,
     manage_groups,
     manage_members,
     manage_pendings,
@@ -30,8 +29,10 @@ urlpatterns = [
     path("pending", squads_pending, name="pending"),
     path("membership", squads_membership, name="membership"),
     # Manage
-    path("accept/<str:application_id>", accept_group, name="accept_group"),
-    path("decline/<str:application_id>", decline_group, name="decline_group"),
+    path("accept/<str:application_id>", manage_application_accept, name="accept_group"),
+    path(
+        "decline/<str:application_id>", manage_application_decline, name="decline_group"
+    ),
     path(
         "delete_membership/<str:application_id>",
         delete_membership,

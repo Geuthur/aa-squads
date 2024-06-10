@@ -21,3 +21,8 @@ EVE_BASE_URL_REGEX = r"^http[s]?:\/\/esi.evetech\.net\/"
 
 # If True you need to set up the Logger
 SQUADS_LOGGER_USE = clean_setting("SQUADS_LOGGER_USE", False)
+
+# Empty Image
+SQUADS_EMPTY_IMAGE = clean_setting(
+    "SQUADS_EMPTY_IMAGE", "static/squads/groups_images/empty.png"
+)
