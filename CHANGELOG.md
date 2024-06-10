@@ -1,5 +1,23 @@
 # Changelog
 
+## \[0.1.9\] - 2024-06-10
+
+### Added
+
+- Many Tests
+- Base Permission Check System
+- Added Request,Cancel,Leave Modal
+
+### Changed
+
+- Filter System now show missing parts
+- ShipFilter
+
+### Fixed
+
+- Empty Squad Icon not shown
+- str not work correctly on Membership
+
 ## \[0.1.8\] - 2024-06-10
 
 ### Added

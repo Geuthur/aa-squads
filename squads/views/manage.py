@@ -10,10 +10,12 @@ from squads.forms import SquadsGroupForm
 from squads.hooks import get_extension_logger
 from squads.models.groups import Groups, Pending
 from squads.models.memberships import Memberships
+from squads.views._core import check_permission
 
 logger = get_extension_logger(__name__)
 
 
+# Group Management
 @login_required
 @permission_required("squads.squad_manager")
 @transaction.atomic
@@ -23,10 +25,11 @@ def create_group(request):
         if form.is_valid():
             group = form.save(commit=False)
             group.description = mark_safe(group.description)
-            if not group.image:  # Überprüfen, ob das Bildfeld leer ist
-                group.image = "squads/groups_images/empty.png"  # Standardbild setzen
+            if not group.image:
+                # Use Static one if empty
+                group.image = "static/squads/groups_images/empty.png"
             group.owner = request.user
-            group.save()  # Save the group to the database before creating related Skills
+            group.save()
             messages.success(request, "Squad has been created.")
             return redirect("squads:groups")
     else:
@@ -39,6 +42,14 @@ def create_group(request):
 @transaction.atomic
 def accept_group(request, application_id):
     pending = get_object_or_404(Pending, application_id=application_id)
+    permission = check_permission(request, pending.group)
+
+    if not permission:
+        messages.error(
+            request, "You do not have permission to accept this application."
+        )
+        return redirect("squads:manage_pendings")
+
     if pending:
         Memberships.objects.create(
             group=pending.group,
@@ -58,6 +69,14 @@ def accept_group(request, application_id):
 @permission_required("squads.squad_manager")
 def decline_group(request, application_id):
     pending = get_object_or_404(Pending, application_id=application_id)
+    permission = check_permission(request, pending.group)
+
+    if not permission:
+        messages.error(
+            request, "You do not have permission to decline this application."
+        )
+        return redirect("squads:manage_pendings")
+
     if pending:
         Pending.objects.filter(application_id=application_id).delete()
         messages.success(request, f"{pending.user.username} has been declined.")
@@ -78,6 +97,7 @@ def manage_pendings(request):
     )
 
 
+# Membership Management
 @login_required
 @permission_required("squads.squad_manager")
 def manage_members(request):
@@ -93,6 +113,12 @@ def manage_members(request):
 @permission_required("squads.squad_manager")
 def delete_membership(request, application_id):
     membership = get_object_or_404(Memberships, application_id=application_id)
+    permission = check_permission(request, membership.group)
+
+    if not permission:
+        messages.error(request, "You do not have permission to delete this membership.")
+        return redirect("squads:manage_members")
+
     if membership:
         Memberships.objects.filter(application_id=application_id).delete()
         messages.success(request, f"{membership.user.username} has been removed.")
@@ -102,6 +128,7 @@ def delete_membership(request, application_id):
     return redirect("squads:manage_members")
 
 
+# Group Management
 @login_required
 @permission_required("squads.squad_manager")
 def manage_groups(request):
@@ -117,6 +144,12 @@ def manage_groups(request):
 @permission_required("squads.squad_manager")
 def delete_group(request, group_id):
     group = get_object_or_404(Groups, pk=group_id)
+    permission = check_permission(request, group)
+
+    if not permission:
+        messages.error(request, "You do not have permission to delete this group.")
+        return redirect("squads:manage_groups")
+
     if group:
         Groups.objects.filter(pk=group_id).delete()
         messages.success(request, f"{group.name} has been removed.")
@@ -130,6 +163,12 @@ def delete_group(request, group_id):
 @permission_required("squads.squad_manager")
 def edit_group(request, group_id):
     group_data = get_object_or_404(Groups, pk=group_id)
+    permission = check_permission(request, group_data)
+
+    if not permission:
+        messages.error(request, "You do not have permission to edit this group.")
+        return redirect("squads:manage_groups")
+
     if request.method == "POST":
         form = SquadsGroupForm(request.POST, request.FILES, instance=group_data)
         if form.is_valid():

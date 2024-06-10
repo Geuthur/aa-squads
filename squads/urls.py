@@ -4,7 +4,7 @@ from django.urls import path, re_path
 from django.views.static import serve
 
 from squads.api import api
-from squads.views.application import apply_group, leave_group
+from squads.views.application import apply_group, cancel_group, leave_group
 from squads.views.groups import broswe_groups, view_group
 from squads.views.main import squads_index, squads_membership, squads_pending
 from squads.views.manage import (
@@ -45,6 +45,7 @@ urlpatterns = [
     # Application
     path("view/<int:group_id>", view_group, name="view_group"),
     path("apply/<int:group_id>", apply_group, name="apply_group"),
+    path("cancel/<int:group_id>", cancel_group, name="cancel_group"),
     path("leave/<int:group_id>", leave_group, name="leave_group"),
     # API
     re_path(r"^api/", api.urls),
