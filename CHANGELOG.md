@@ -1,5 +1,17 @@
 # Changelog
 
+## \[0.1.8\] - 2024-06-10
+
+### Added
+
+- Delete Request Modal
+- Assets Filter
+
+### Removed
+
+- Removed logger tests
+- Req. Skills Info on Manage Member Table
+
 ## \[0.1.7\] - 2024-06-09
 
 ### Added

@@ -7,7 +7,11 @@
     {% include 'squads/manage/menu.html' %}
 {% endblock %}
 
+
+
 {% block squads_block %}
+
+{% include "squads/modals/manage/delete_request.html" %}
 
 <div class="bg-primary rounded-top px-2 py-2 mb-4">
     <h3 class="text-white">{% translate "Manage Members" %}</h3>
@@ -19,7 +23,6 @@
             <thead>
                 <th class="col-user" style="width: 20%;">User</th>
                 <th class="col-group" style="width: 20%;">Group</th>
-                <th class="col-skills" style="width: 20%;">Req. Skills</th>
                 <th class="col-active" style="width: 20%;">Active</th>
                 <th class="col-joined" style="width: 20%;">Joined</th>
                 <th class="col-actions" style="width: 10%;">Actions</th>
@@ -37,6 +40,21 @@
 {% include 'bundles/datatables-js-bs5.html' %}
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', function () {
+    // Event Listener
+    $('#modal-button-confirm-remove-request').on('click', function () {
+        var deleteUrl = $(this).attr('data-delete-url');
+        window.location.href = deleteUrl;
+    });
+
+    // Event-Listener
+    $('#squads-request-remove').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var deleteUrl = button.data('delete-url');
+        var memberName = button.data('delete-name');
+        $('#modal-button-confirm-remove-request').attr('data-delete-url', deleteUrl);
+        $('#name-to-delete').text(memberName);
+    });
+
     // Initialize DataTable
     var Groups = $('#members').DataTable({
         ajax: {
@@ -49,13 +67,6 @@ document.addEventListener('DOMContentLoaded', function () {
         columns: [
             {data: 'user'},
             {data: 'group'},
-            {data: 'has_required_skills', render: function(data, type, row) {
-                if (data) {
-                    return '<button class="btn btn-success btn-sm" disabled><i class="fa-solid fa-check"></i></button>';
-                } else {
-                    return '<button class="btn btn-danger btn-sm" disabled><i class="fa-solid fa-ban"></i></button>';
-                }
-            }},
             {data: 'is_active', render: function(data, type, row) {
                 if (data) {
                     return '<button class="btn btn-success btn-sm" disabled><i class="fa-solid fa-check"></i></button>';
@@ -67,12 +78,12 @@ document.addEventListener('DOMContentLoaded', function () {
         ],
         columnDefs: [
             {
-                targets: 5,
+                targets: 4,
                 sortable: false,
                 render: function (data, type, row) {
                     var deleteTemplate = "{% url 'squads:delete_membership' '0' %}";
                     var deleteUrl = deleteTemplate.replace('0', row.application_id);
-                    return '<a href="'+ deleteUrl +'"><button class="btn btn-danger btn-sm" title="Remove"><i class="fa-solid fa-ban"></i></button></a>';
+                    return '<button class="btn btn-danger btn-sm delete-btn" data-bs-toggle="modal" data-bs-target="#squads-request-remove" data-delete-url="'+ deleteUrl +'" data-delete-name="'+ row.user +'" title="Remove"><i class="fa-solid fa-ban"></i></button>';
                 },
             }
         ]

@@ -9,6 +9,8 @@
 
 {% block squads_block %}
 
+{% include "squads/modals/manage/delete_request.html" %}
+
 <div class="bg-primary rounded-top px-2 py-2 mb-4">
     <h3 class="text-white">{% translate "Manage Squads" %}</h3>
 </div>
@@ -35,6 +37,21 @@
 {% include 'bundles/datatables-js-bs5.html' %}
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', function () {
+    // Event Listener
+    $('#modal-button-confirm-remove-request').on('click', function () {
+        var deleteUrl = $(this).attr('data-delete-url');
+        window.location.href = deleteUrl;
+    });
+
+    // Event-Listener
+    $('#squads-request-remove').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var deleteUrl = button.data('delete-url');
+        var memberName = button.data('delete-name');
+        $('#modal-button-confirm-remove-request').attr('data-delete-url', deleteUrl);
+        $('#name-to-delete').text(memberName);
+    });
+
     // Initialize DataTable
     var Groups = $('#groups').DataTable({
         ajax: {
@@ -65,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     var deleteTemplate = "{% url 'squads:delete_group' '0' %}";
                     var manageUrl = manageTemplate.replace('0', row.group_id);
                     var deleteUrl = deleteTemplate.replace('0', row.group_id);
-                    return '<a href="'+ manageUrl +'"><button class="btn btn-primary btn-sm" title="Edit"><i class="fa-solid fa-eye"></i></button></a> <a href="'+ deleteUrl +'"><button class="btn btn-danger btn-sm" title="Delete"><i class="fa-solid fa-ban"></i></button></a>';
+                    return '<a href="'+ manageUrl +'"><button class="btn btn-primary btn-sm" title="Edit"><i class="fa-solid fa-eye"></i></button></a> <button class="btn btn-danger btn-sm delete-btn" data-bs-toggle="modal" data-bs-target="#squads-request-remove" data-delete-url="'+ deleteUrl +'" data-delete-name="'+ row.group +'" title="Remove"><i class="fa-solid fa-ban"></i></button>';
                 },
             }
         ]
