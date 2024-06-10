@@ -2,11 +2,19 @@
 
 from typing import Any
 
+from django import forms
 from django.contrib import admin
 from django.db.models.query import QuerySet
 from django.http.request import HttpRequest
+from eveuniverse.models import EveGroup
 
-from squads.models.filters import AssetsFilter, SkillSetFilter, SquadFilter, SquadGroup
+from squads.models.filters import (
+    AssetsFilter,
+    ShipFilter,
+    SkillSetFilter,
+    SquadFilter,
+    SquadGroup,
+)
 
 
 @admin.register(SkillSetFilter)
@@ -47,6 +55,41 @@ class AssetsFilterAdmin(admin.ModelAdmin):
     @admin.display()
     def _assets(self, obj) -> str:
         objs = obj.assets.all()
+
+        return ", ".join(sorted([obj.name for obj in objs]))
+
+
+# Create own form for EveGroupFilter
+class ShipFilterForm(forms.ModelForm):
+    class Meta:
+        model = ShipFilter
+        fields = "__all__"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["ship"].queryset = EveGroup.objects.filter(
+            published=1, eve_category__in=[6]
+        )
+
+
+@admin.register(ShipFilter)
+class ShippFilterAdmin(admin.ModelAdmin):
+    """
+    ShipFilterAdmin
+    """
+
+    form = ShipFilterForm
+    list_display = ("description", "_ship")
+    filter_horizontal = ["ship"]
+
+    def get_queryset(self, request: HttpRequest) -> QuerySet[Any]:
+        qs = super().get_queryset(request)
+
+        return qs.prefetch_related("ship")
+
+    @admin.display()
+    def _ship(self, obj) -> str:
+        objs = obj.ship.all()
 
         return ", ".join(sorted([obj.name for obj in objs]))
 

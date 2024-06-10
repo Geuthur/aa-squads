@@ -9,7 +9,7 @@ from allianceauth.services.hooks import MenuItemHook, UrlHook
 
 from squads import app_settings, urls
 from squads.hooks import get_extension_logger
-from squads.models.filters import AssetsFilter, SkillSetFilter
+from squads.models.filters import AssetsFilter, ShipFilter, SkillSetFilter
 
 logger = get_extension_logger(__name__)
 
@@ -47,4 +47,4 @@ def register_urls():
 
 @hooks.register("squads_filters")
 def filters():
-    return [SkillSetFilter, AssetsFilter]
+    return [SkillSetFilter, AssetsFilter, ShipFilter]
