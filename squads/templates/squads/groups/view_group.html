@@ -15,38 +15,53 @@
 <div class="card-body">
     {{ group.safe_description|safe }}
     <hr>
-    {% if not pending_application and not membership and skill_req %}
-    <form method="post" action="{% url 'squads:apply_group' group_id=group.id %}" class="d-flex align-items-end" style="gap: 0.5rem;">
-        {% csrf_token %}
-        <div class="mr-2">
-            {{ comment_form.comment }}
-        </div>
-        <button type="submit" name="join_group" class="btn btn-primary">{% translate "Apply" %}</button>
-    </form>
+    {% if not pending_application and not membership and filter_req %}
+        <form method="post" action="{% url 'squads:apply_group' group_id=group.id %}" class="d-flex align-items-end" style="gap: 0.5rem;">
+            {% csrf_token %}
+            <div class="mr-2">
+                {{ comment_form.comment }}
+            </div>
+            <button type="submit" name="join_group" class="btn btn-primary">{% translate "Apply" %}</button>
+        </form>
     {% else %}
-    {% if pending_application %}
-        <div class="d-flex justify-content-start gap-2">
-            <button type="button" class="btn btn-warning" disabled>{% translate "Pending Application" %}</button>
-            <button type="button" data-group-id="{{ group.id }}" class="btn btn-danger cancel-request-btn">{% translate "Cancel Request" %}</button>
-        </div>
-        <br>
-        {% translate 'You Applied since' %} {{ pending_application.created_at|naturaltime }}
-    {% endif %}
-    {% if membership %}
-        <div class="d-flex justify-content-start gap-2">
-            <button type="button" class="btn btn-success" disabled>{% translate "Active Membership" %}</button> <br><br>
-            <button type="button" data-group-id="{{ group.id }}" class="btn btn-danger leave-request-btn">{% translate "Leave Squad" %}</button>
-        </div>
-        <br>
-        {% translate 'You Joined since' %} {{ membership.joined_at|naturaltime }}
+        {% if pending_application %}
+            <div class="d-flex justify-content-start gap-2">
+                <button type="button" class="btn btn-warning" disabled>{% translate "Pending Application" %}</button>
+                <button type="button" data-group-id="{{ group.id }}" class="btn btn-danger cancel-request-btn">{% translate "Cancel Request" %}</button>
+            </div>
+            <br>
+            {% translate 'You Applied since' %} {{ pending_application.created_at|naturaltime }}
+        {% endif %}
+        {% if membership %}
+            <div class="d-flex justify-content-start gap-2">
+                <button type="button" class="btn btn-success" disabled>{% translate "Active Membership" %}</button> <br><br>
+                <button type="button" data-group-id="{{ group.id }}" class="btn btn-danger leave-request-btn">{% translate "Leave Squad" %}</button>
+            </div>
+            <br>
+            {% translate 'You Joined since' %} {{ membership.joined_at|naturaltime }}
 
+        {% endif %}
     {% endif %}
-    {% endif %}
-    {% if not skill_req %}
-    <button type="button" class="btn btn-warning" disabled>{% translate "Missing requirements" %}</button> <br>
-    {% translate 'You dont the have the requirements to join this Squad' %}
+    {% if not filter_req %}
+        <button type="button" class="btn btn-warning" disabled>{% translate "Missing requirements" %}</button> <br>
     {% endif %}
 </div>
+{% endblock %}
+
+{% block squads_block_extra %}
+{% if missing_req %}
+    <br>
+    <div class="card">
+        <div class="card-header bg-warning text-white">{% translate "Missing Requirements" %}</div><br>
+        <ul>
+            {% for req_list in missing_req %}
+                {% for req in req_list %}
+                    <li>{{ req.type }}: {{ req.name|safe }} {{ req.amount }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    <div>
+{% endif %}
 {% endblock %}
 
 {% block extra_javascript %}

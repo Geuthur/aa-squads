@@ -52,10 +52,11 @@ def view_group(request, group_id):
     membership = Memberships.objects.filter(user=request.user, group=group).first()
     filters = SquadGroup.objects.filter(group=group).first()
 
-    skill_req = True
+    filter_req = True
+    missing_req = []
+
     if filters:
-        # Check all Filters
-        skill_req = filters.check_user(request.user)
+        filter_req, missing_req = filters.check_user(request.user)
 
     if request.method == "POST" and "join_group" in request.POST:
         return redirect("squads:view_group", group_id=group_id)
@@ -65,7 +66,8 @@ def view_group(request, group_id):
         "comment_form": comment_form,
         "pending_application": pending_application,
         "membership": membership,
-        "skill_req": skill_req,
+        "filter_req": filter_req,
+        "missing_req": missing_req,
     }
 
     return render(
