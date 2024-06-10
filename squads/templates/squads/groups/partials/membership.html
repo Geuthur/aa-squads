@@ -1,0 +1,11 @@
+{% load i18n %}
+{% load humanize %}
+
+{% if membership %}
+    <div class="d-flex justify-content-start gap-2">
+        <button type="button" class="btn btn-success" disabled>{% translate "Active Membership" %}</button> <br><br>
+        <button type="button" data-group-id="{{ group.id }}" class="btn btn-danger leave-request-btn">{% translate "Leave Squad" %}</button>
+    </div>
+    <br>
+    {% translate 'You Joined since' %} {{ membership.joined_at|naturaltime }}
+{% endif %}

@@ -15,53 +15,27 @@
 <div class="card-body">
     {{ group.safe_description|safe }}
     <hr>
-    {% if not pending_application and not membership and filter_req %}
+    {% if not pending_application and not membership %}
         <form method="post" action="{% url 'squads:apply_group' group_id=group.id %}" class="d-flex align-items-end" style="gap: 0.5rem;">
             {% csrf_token %}
             <div class="mr-2">
                 {{ comment_form.comment }}
             </div>
-            <button type="submit" name="join_group" class="btn btn-primary">{% translate "Apply" %}</button>
+            <input type="hidden" name="filter_req" value="{{ filter_req }}">
+            <button type="submit" name="join_group" class="btn btn-primary {% if not filter_req %}disabled btn-danger{% endif %}">{% translate "Apply" %}</button>
         </form>
     {% else %}
-        {% if pending_application %}
-            <div class="d-flex justify-content-start gap-2">
-                <button type="button" class="btn btn-warning" disabled>{% translate "Pending Application" %}</button>
-                <button type="button" data-group-id="{{ group.id }}" class="btn btn-danger cancel-request-btn">{% translate "Cancel Request" %}</button>
-            </div>
-            <br>
-            {% translate 'You Applied since' %} {{ pending_application.created_at|naturaltime }}
-        {% endif %}
-        {% if membership %}
-            <div class="d-flex justify-content-start gap-2">
-                <button type="button" class="btn btn-success" disabled>{% translate "Active Membership" %}</button> <br><br>
-                <button type="button" data-group-id="{{ group.id }}" class="btn btn-danger leave-request-btn">{% translate "Leave Squad" %}</button>
-            </div>
-            <br>
-            {% translate 'You Joined since' %} {{ membership.joined_at|naturaltime }}
 
-        {% endif %}
-    {% endif %}
-    {% if not filter_req %}
-        <button type="button" class="btn btn-warning" disabled>{% translate "Missing requirements" %}</button> <br>
+    {% include "squads/groups/partials/pending.html" with pending_application=pending_application %}
+
+    {% include "squads/groups/partials/membership.html" with membership=membership %}
+
     {% endif %}
 </div>
 {% endblock %}
 
 {% block squads_block_extra %}
-{% if missing_req %}
-    <br>
-    <div class="card">
-        <div class="card-header bg-warning text-white">{% translate "Missing Requirements" %}</div><br>
-        <ul>
-            {% for req_list in missing_req %}
-                {% for req in req_list %}
-                    <li>{{ req.type }}: {{ req.name|safe }} {{ req.amount }}</li>
-                {% endfor %}
-            {% endfor %}
-        </ul>
-    <div>
-{% endif %}
+    {% include "squads/groups/partials/requirements.html" with membership=membership pending_application=pending_application missing_req=missing_req  %}
 {% endblock %}
 
 {% block extra_javascript %}
@@ -77,6 +51,12 @@ document.addEventListener('DOMContentLoaded', function () {
         var groupId = $(this).data('group-id');
         $('#modal-button-confirm-leave-request').attr('data-group-id', groupId);
         $('#squads-request-leave').modal('show');
+    });
+
+    document.querySelector('.form-control').addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+        }
     });
 });
 </script>
