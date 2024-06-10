@@ -2,13 +2,14 @@
 Memberships Model
 """
 
-from memberaudit.models import CharacterSkillSetCheck, SkillSet
+from memberaudit.models import CharacterAsset, CharacterSkillSetCheck, SkillSet
 
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from eveuniverse.models import EveType
 
 from squads.hooks import get_extension_logger
 from squads.models.groups import Groups
@@ -17,11 +18,11 @@ logger = get_extension_logger(__name__)
 
 
 class BaseFilter(models.Model):
-    """BaseFilter Model store BaseFilter Data."""
+    """BaseFilter Model."""
 
     description = models.CharField(
         max_length=500,
-        help_text=_("Filter description shown to Users."),
+        help_text=_("Filter Name."),
     )
 
     def __str__(self) -> str:
@@ -32,7 +33,7 @@ class BaseFilter(models.Model):
 
 
 class SkillSetFilter(BaseFilter):
-    """SkillSetFilter Model store SkillSetFilter Data."""
+    """SkillSetFilter."""
 
     skill_sets = models.ManyToManyField(
         SkillSet,
@@ -52,7 +53,27 @@ class SkillSetFilter(BaseFilter):
         return qs.exists()
 
 
+class AssetsFilter(BaseFilter):
+    """AssetsFilter."""
+
+    assets = models.ManyToManyField(
+        EveType,
+        help_text=_(
+            "Users must have at least <strong>one</strong> of the selected assets with <strong>one</strong> character."
+        ),
+    )
+
+    def check_filter(self, user: User):
+        """Check if user Characters has at least one of the given asset."""
+        return CharacterAsset.objects.filter(
+            character__eve_character__character_ownership__user=user,
+            eve_type__in=list(self.assets.all()),
+        ).exists()
+
+
 class SquadFilter(models.Model):
+    """SquadFilter show up all Filters."""
+
     content_type = models.ForeignKey(
         ContentType, on_delete=models.CASCADE, editable=False
     )
@@ -67,7 +88,7 @@ class SquadFilter(models.Model):
 
 
 class SquadGroup(models.Model):
-    """Squad Model store Filter Data."""
+    """Squads Group Filter."""
 
     group = models.OneToOneField(Groups, on_delete=models.CASCADE)
     description = models.CharField(max_length=500, default="", blank=True)
@@ -80,7 +101,7 @@ class SquadGroup(models.Model):
 
     # Check Filters
     # pylint: disable=broad-exception-caught
-    def check_filters(self, user: User):
+    def run_filters(self, user: User):
         output = []
         for check in self.filters.all():
             try:
@@ -89,9 +110,10 @@ class SquadGroup(models.Model):
                     logger.debug("Filter %s is None", check)
                     continue
                 run_test = _filter.check_filter(user)
-            except Exception:
+            except Exception as e:
                 run_test = False
                 logger.warning("Filter Check Failed: %s", check)
+                logger.debug("Error: %s", e, exc_info=True)
             _check = {
                 "desc": check.filter_object.description,
             }
@@ -107,6 +129,6 @@ class SquadGroup(models.Model):
         return output
 
     def check_user(self, user: User):
-        checks = self.check_filters(user)
+        checks = self.run_filters(user)
         output = self.process_filters(checks)
         return output

@@ -6,7 +6,7 @@ from django.contrib import admin
 from django.db.models.query import QuerySet
 from django.http.request import HttpRequest
 
-from squads.models.filters import SkillSetFilter, SquadFilter, SquadGroup
+from squads.models.filters import AssetsFilter, SkillSetFilter, SquadFilter, SquadGroup
 
 
 @admin.register(SkillSetFilter)
@@ -26,6 +26,27 @@ class SkillSetFilterAdmin(admin.ModelAdmin):
     @admin.display()
     def _skill_sets(self, obj) -> str:
         objs = obj.skill_sets.all()
+
+        return ", ".join(sorted([obj.name for obj in objs]))
+
+
+@admin.register(AssetsFilter)
+class AssetsFilterAdmin(admin.ModelAdmin):
+    """
+    AssetsFilterAdmin
+    """
+
+    list_display = ("description", "_assets")
+    autocomplete_fields = ["assets"]
+
+    def get_queryset(self, request: HttpRequest) -> QuerySet[Any]:
+        qs = super().get_queryset(request)
+
+        return qs.prefetch_related("assets")
+
+    @admin.display()
+    def _assets(self, obj) -> str:
+        objs = obj.assets.all()
 
         return ", ".join(sorted([obj.name for obj in objs]))
 
