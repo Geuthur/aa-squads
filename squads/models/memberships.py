@@ -27,7 +27,7 @@ class Memberships(models.Model):
     )
 
     def __str__(self) -> str:
-        return str(self.user + " in " + self.group.name)
+        return f"{self.user} in {self.group.name}"
 
     class Meta:
         default_permissions = ()
