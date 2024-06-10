@@ -25,10 +25,11 @@ def create_group(request):
         if form.is_valid():
             group = form.save(commit=False)
             group.description = mark_safe(group.description)
-            if not group.image:  # Überprüfen, ob das Bildfeld leer ist
-                group.image = "squads/groups_images/empty.png"  # Standardbild setzen
+            if not group.image:
+                # Use Static one if empty
+                group.image = "static/squads/groups_images/empty.png"
             group.owner = request.user
-            group.save()  # Save the group to the database before creating related Skills
+            group.save()
             messages.success(request, "Squad has been created.")
             return redirect("squads:groups")
     else:
