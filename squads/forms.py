@@ -129,6 +129,12 @@ class SquadsGroupForm(forms.ModelForm):
 class CommentForm(forms.Form):
     comment = forms.CharField(
         widget=forms.TextInput(
-            attrs={"rows": 1, "maxlength": 200, "placeholder": "comment..."}
-        )
+            attrs={
+                "class": "form-control",
+                "rows": 1,
+                "maxlength": 200,
+                "placeholder": "comment...",
+            }
+        ),
+        required=False,
     )
