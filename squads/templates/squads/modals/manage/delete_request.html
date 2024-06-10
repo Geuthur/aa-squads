@@ -1,0 +1,35 @@
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+
+<div class="modal fade" id="squads-request-remove" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    {% translate "Delete request" %}: <span id="name-to-delete"></span>
+                </div>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% translate 'Close' %}"></button>
+            </div>
+
+            <div class="modal-body">
+                <p>
+                    {% translate "Are you sure you want to delete?" %}
+                </p>
+            </div>
+
+            <div class="modal-footer">
+                <button id="modal-button-cancel-remove-request" type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
+                    <i class="fa-regular fa-hand"></i>
+                    {% translate "Cancel" %}
+                </button>
+
+                <button id="modal-button-confirm-remove-request" type="button" class="btn btn-danger btn-sm">
+                    <i class="fa-solid fa-trash-can"></i>
+                    {% translate "Delete" %}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
