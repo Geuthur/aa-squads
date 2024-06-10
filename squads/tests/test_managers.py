@@ -35,22 +35,33 @@ class GroupsManagerTest(TestCase):
         )
 
     def test_visible_to_superuser(self):
+        # given
         self.user.is_superuser = True
+        # when
         visible_squads = self.groups.visible_to(self.user)
+        # then
         self.assertEqual(visible_squads.count(), Groups.objects.count())
 
     def test_visible_to_squad_admin(self):
+        # given
         permission, _ = Permission.objects.get_or_create(codename="squad_admin")
         self.user.user_permissions.add(permission)
+        # when
         visible_squads = self.groups.visible_to(self.user)
+        # then
         self.assertEqual(visible_squads.count(), Groups.objects.count())
 
     def test_visible_to_squad_manager(self):
+        # given
         permission, _ = Permission.objects.get_or_create(codename="squad_manager")
         self.user.user_permissions.add(permission)
+        # when
         visible_squads = self.groups.visible_to(self.user)
+        # then
         self.assertEqual(visible_squads.count(), 1)  # Only owns 1 squad
 
     def test_visible_to_regular_user(self):
+        # given/when
         visible_squads = self.groups.visible_to(self.user)
+        # then
         self.assertEqual(visible_squads.count(), 0)  # Should see none

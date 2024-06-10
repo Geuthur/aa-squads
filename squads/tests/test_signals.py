@@ -9,28 +9,28 @@ from squads.signals import HookCache, new_filter, rem_filter
 class TestHookCache(TestCase):
     @patch("squads.signals.hooks.get_hooks")
     def test_get_hooks(self, mock_get_hooks):
+        # given/when
         mock_get_hooks.return_value = [lambda: [SkillSetFilter], lambda: [AssetsFilter]]
         cache = HookCache()
         hooks = cache.get_hooks()
         self.assertEqual(len(hooks), 2)
         self.assertTrue(SkillSetFilter in hooks)
         self.assertTrue(AssetsFilter in hooks)
-        # Test caching
+        # then
         hooks_again = cache.get_hooks()
         self.assertEqual(hooks, hooks_again)
         mock_get_hooks.assert_called_once()
 
     @patch("squads.signals.hooks.get_hooks")
     def test_ignores_duplicate_hooks(self, mock_get_hooks):
-        # Mock get_hooks, um zweimal dasselbe Filtermodell zurückzugeben
+        # given/when
         mock_get_hooks.return_value = [
             lambda: [SkillSetFilter],
             lambda: [SkillSetFilter],
         ]
         cache = HookCache()
         hooks = cache.get_hooks()
-        # Erwarten, dass trotz des Versuchs, dasselbe Modell zweimal hinzuzufügen,
-        # es nur einmal in der Liste erscheint
+        # then
         self.assertEqual(len(hooks), 1)
         self.assertTrue(SkillSetFilter in hooks)
 
