@@ -112,7 +112,8 @@ LOGGING["loggers"].update(LOGGING_SQUADS["loggers"])
 ![Screenshot 2024-06-09 164502](https://github.com/Geuthur/aa-squads/assets/761682/1249d415-9d72-4cf0-8c62-d1ac4db72986)
 ![Screenshot 2024-06-09 164516](https://github.com/Geuthur/aa-squads/assets/761682/66608190-42db-4780-9b10-c8832d96cb2d)
 ![Screenshot 2024-06-09 164508](https://github.com/Geuthur/aa-squads/assets/761682/c989d2ed-6602-441b-b903-b7f22ecf69c0)
-![Screenshot 2024-06-09 170318](https://github.com/Geuthur/aa-squads/assets/761682/fd945878-caeb-4d89-8093-885258dc306a)
+![Screenshot 2024-06-10 235804](https://github.com/Geuthur/aa-squads/assets/761682/e0c816e6-2b5b-421f-add3-57628ad05004)
+
 
 > \[!NOTE\]
 > Contributing
