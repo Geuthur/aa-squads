@@ -1,5 +1,17 @@
 # Changelog
 
+## \[0.2.0\] - 2024-06-10
+
+### Added
+
+- SQUADS_EMPTY_IMAGE path
+
+### Fixed
+
+- Template Issues
+- Form Issues
+- Filter Issues
+
 ## \[0.1.9\] - 2024-06-10
 
 ### Added
