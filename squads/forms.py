@@ -5,15 +5,27 @@ from bleach.css_sanitizer import CSSSanitizer
 
 from django import forms
 from django.core.exceptions import ValidationError
+from django.forms.widgets import ClearableFileInput
 from django.utils.translation import gettext_lazy as _
 
 from .models import Groups
+
+
+class CustomClearableFileInput(ClearableFileInput):
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+        if value and hasattr(value, "url"):
+            context["widget"]["is_initial"] = False
+        return context
 
 
 class SquadsGroupForm(forms.ModelForm):
     class Meta:
         model = Groups
         fields = ["name", "description", "require_approval", "image"]
+        widgets = {
+            "image": CustomClearableFileInput(),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
