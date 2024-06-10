@@ -48,3 +48,20 @@ def leave_group(request, group_id):
         messages.error(request, "You are not in that Squad.")
 
     return redirect("squads:view_group", group_id=group_id)
+
+
+@login_required
+@permission_required("squads.basic_access")
+def cancel_group(request, group_id):
+    group = get_object_or_404(Groups, id=group_id)
+    pending = Pending.objects.filter(user=request.user, group=group).first()
+
+    if pending:
+        pending.delete()
+        messages.success(
+            request, f"You canceled your application to {pending.group.name}."
+        )
+    else:
+        messages.error(request, "You are not applied to that Squad.")
+
+    return redirect("squads:view_group", group_id=group_id)

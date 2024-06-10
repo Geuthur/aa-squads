@@ -1,0 +1,37 @@
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+
+<div class="modal fade" id="squads-request-cancel" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    {% translate "Cancel request" %}: {{ group.name }}</span>
+                </div>
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{% translate 'Close' %}"></button>
+            </div>
+
+            <div class="modal-body">
+                <p>
+                    {% translate "Are you sure you want to cancel your Request?" %}
+                </p>
+            </div>
+
+            <div class="modal-footer">
+                <button id="modal-button-cancel-cancel-request" type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
+                    <i class="fa-regular fa-hand"></i>
+                    {% translate "Cancel" %}
+                </button>
+                <form method="post" action="{% url 'squads:cancel_group' group_id=group.id %}" class="d-flex align-items-end" style="gap: 0.5rem;">
+                    <button id="modal-button-confirm-cancel-request" type="submit" class="btn btn-danger btn-sm">
+                        <i class="fa-solid fa-trash-can"></i>
+                        {% translate "Delete" %}
+                    </button>
+                    {% csrf_token %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
