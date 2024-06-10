@@ -1,4 +1,4 @@
-from squads.models.groups import Pending
+from squads.models.groups import Groups, Pending
 
 
 def add_info_to_context(request, context: dict) -> dict:
@@ -11,3 +11,11 @@ def add_info_to_context(request, context: dict) -> dict:
         **context,
     }
     return new_context
+
+
+def check_permission(request, group: Groups):
+    """Check if the user has the permission."""
+    visible = Groups.objects.visible_to(request.user)
+    if group not in visible:
+        return False
+    return True
