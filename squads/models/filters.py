@@ -144,7 +144,7 @@ class ShipFilter(BaseFilter):
     ship = models.ManyToManyField(
         EveGroup,
         help_text=_(
-            "Users must have at least <strong>one</strong> of the selected Eve Type with <strong>one</strong> character."
+            "Users must have at least <strong>one</strong> of the selected Ship Type with <strong>one</strong> character."
         ),
     )
 
@@ -152,7 +152,7 @@ class ShipFilter(BaseFilter):
         """
         Returns:
             bool: True if the user passes the filter, False otherwise.
-            list: A list dict of missing Eve Type that the user's Characters do not have.
+            list: A list dict of missing Ship Type that the user's Characters do not have.
         """
         missing = []
         required_ship = set(self.ship.all().values_list("name", flat=True))
