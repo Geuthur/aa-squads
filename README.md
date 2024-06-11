@@ -53,7 +53,12 @@ Configure your Alliance Auth settings (`local.py`) as follows:
 
 ### Step 3 - Add the Scheduled Tasks<a name="step3"></a>
 
-At the Moment it is not implemented yet.
+```python
+CELERYBEAT_SCHEDULE["run_check_squads"] = {
+    "task": "squads.tasks.run_check_squads",
+    "schedule": crontab(hour="*/23"),
+}
+```
 
 ### Step 4 - Migration to AA<a name="step4"></a>
 
