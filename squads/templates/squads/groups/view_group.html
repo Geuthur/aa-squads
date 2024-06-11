@@ -18,11 +18,22 @@
     {% if not pending_application and not membership %}
         <form method="post" action="{% url 'squads:apply_group' group_id=group.id %}" class="d-flex align-items-end" style="gap: 0.5rem;">
             {% csrf_token %}
-            <div class="mr-2">
-                {{ comment_form.comment }}
-            </div>
+            {% if group.require_approval %}
+                <div class="mr-2">
+                    {{ comment_form.comment }}
+                </div>
+            {% endif %}
             <input type="hidden" name="filter_req" value="{{ filter_req }}">
-            <button type="submit" name="join_group" class="btn btn-primary {% if not filter_req %}disabled btn-danger{% endif %}">{% translate "Apply" %}</button>
+                <button
+                    type="submit"
+                    name="{% if group.require_approval %}apply_group{% else %}join_group{% endif %}"
+                    class="btn {% if group.require_approval %}btn-primary{% else %}btn-success{% endif %} {% if not filter_req %}disabled btn-danger{% endif %}">
+                    {% if group.require_approval %}
+                        {% translate "Apply" %}
+                    {% else %}
+                        {% translate "Join" %}
+                    {% endif %}
+                </button>
         </form>
     {% else %}
 

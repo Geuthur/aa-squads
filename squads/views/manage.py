@@ -112,7 +112,7 @@ def delete_membership(request, application_id):
 @login_required
 @permission_required("squads.squad_manager")
 def manage_groups(request):
-    manage_squads = Groups.objects.filter(owner=request.user)
+    manage_squads = Groups.objects.visible_to(request.user)
     return render(
         request,
         "squads/manage/manage_squads.html",

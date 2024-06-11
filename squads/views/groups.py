@@ -42,7 +42,7 @@ def create_group(request):
 @login_required
 @permission_required("squads.basic_access")
 def broswe_groups(request):
-    groups_list = Groups.objects.all()
+    groups_list = Groups.objects.filter(is_active=True).order_by("name").all()
     membership_ids = Memberships.objects.filter(user=request.user).values_list(
         "group_id", flat=True
     )
@@ -82,9 +82,6 @@ def view_group(request, group_id):
 
     if filters:
         filter_req, missing_req = filters.check_user(request.user)
-
-    if request.method == "POST" and "join_group" in request.POST:
-        return redirect("squads:view_group", group_id=group_id)
 
     context = {
         "group": group,
