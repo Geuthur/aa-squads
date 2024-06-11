@@ -29,8 +29,11 @@ class SquadsGroupForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["name"].widget.attrs.update({"class": "form-control"})
+        self.fields["name"].widget.attrs.update(
+            {"class": "form-control", "maxlength": "26", "required": True}
+        )
         self.fields["description"].widget.attrs.update({"class": "form-control"})
+        self.fields["description"].max_length = 1000
         self.fields["require_approval"].widget.attrs.update(
             {"class": "form-check-input"}
         )
@@ -39,6 +42,12 @@ class SquadsGroupForm(forms.ModelForm):
                 required=False, label="Is Active", initial=self.instance.is_active
             )
             self.fields["is_active"].widget.attrs.update({"class": "form-check-input"})
+
+    def clean_name(self):
+        name = self.cleaned_data.get("name")
+        if name and len(name) > 26:
+            raise ValidationError("The name must be at most 26 characters long.")
+        return name
 
     # Prvent Security Issues
     def clean_description(self):
@@ -126,15 +135,20 @@ class SquadsGroupForm(forms.ModelForm):
         return cleaned_data
 
     def clean_image(self):
-        image = self.cleaned_data.get("image")
-        if image:
-            max_size = 2 * 1024 * 1024  # 2 MB
-            if image.size > max_size:
-                raise ValidationError(
-                    _(
-                        "The image file is too large ( > 2 MB ). Please choose a smaller file."
+        try:
+            image = self.cleaned_data.get("image")
+            if image:
+                max_size = 2 * 1024 * 1024  # 2 MB
+                if image.size > max_size:
+                    raise ValidationError(
+                        _(
+                            "The image file is too large ( > 2 MB ). Please choose a smaller file."
+                        )
                     )
-                )
+        # TODO Fix this in correct way
+        # Bad Fix but works for now
+        except FileNotFoundError:
+            return None
         return image
 
 
