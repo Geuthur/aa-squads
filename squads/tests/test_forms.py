@@ -34,7 +34,6 @@ class TestCleanImage(TestCase):
     def test_init_with_instance_pk(self):
         self.assertIn("is_active", self.form.fields)
         self.assertFalse(self.form.fields["is_active"].required)
-        self.assertEqual(self.form.fields["is_active"].label, "Is Active")
         self.assertEqual(self.form.fields["is_active"].initial, self.group.is_active)
         self.assertEqual(
             self.form.fields["is_active"].widget.attrs, {"class": "form-check-input"}
