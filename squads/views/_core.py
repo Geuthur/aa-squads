@@ -1,4 +1,5 @@
-from squads.models.groups import Groups, Pending
+from squads.models.groups import Groups
+from squads.models.member import Pending
 
 
 def add_info_to_context(request, context: dict) -> dict:

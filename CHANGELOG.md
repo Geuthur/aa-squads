@@ -1,5 +1,20 @@
 # Changelog
 
+## \[0.2.3\] - 2024-06-11
+
+### Added
+
+- Squads Filter Check Task
+- Pending Field `req_filters`
+
+### Changed
+
+- Groups Renamed Fields
+- Memberships Renamed Fields
+- Pending Renamed Fields
+
+### Fixed
+
 ## \[0.2.2\] - 2024-06-11
 
 ### Added

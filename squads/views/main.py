@@ -2,8 +2,7 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import render
 
-from squads.models.groups import Pending
-from squads.models.memberships import Memberships
+from squads.models.member import Memberships, Pending
 from squads.views._core import add_info_to_context
 
 

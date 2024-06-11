@@ -19,8 +19,9 @@
             <thead>
                 <th class="col-user" style="width: 20%;">User</th>
                 <th class="col-group" style="width: 20%;">Group</th>
-                <th class="col-application" style="width: 20%;">Application</th>
-                <th class="col-skills" style="width: 20%;">Required Skills</th>
+                <th class="col-filter" style="width: 20%;">Filters Met</th>
+                <th class="col-application" style="width: 20%;">Application ID</th>
+                <th class="col-comment" style="width: 20%;">Comment</th>
                 <th class="col-actions" style="width: 10%;">Actions</th>
             </thead>
 
@@ -48,13 +49,19 @@ document.addEventListener('DOMContentLoaded', function () {
         columns: [
             {data: 'user'},
             {data: 'group'},
-            {data: 'application'},
-            {data: 'skills'},
+            {data: 'req_filters', render: function(data, type, row) {
+                if (data) {
+                    return '<button class="btn btn-success btn-sm" disabled><i class="fa-solid fa-check"></i></button>';
+                } else {
+                    return '<button class="btn btn-danger btn-sm" disabled><i class="fa-solid fa-ban"></i></button>';
+                }
+            }},
             {data: 'application_id'},
+            {data: 'comment'},
         ],
         columnDefs: [
             {
-                targets: 4,
+                targets: 5,
                 className: 'text-end',
                 sortable: false,
                 render: function (data, type, row) {

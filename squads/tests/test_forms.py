@@ -26,7 +26,7 @@ class TestCleanImage(TestCase):
             owner=cls.user,
             name="Test Group",
             description="Test Description",
-            require_approval=True,
+            req_approve=True,
         )
         cls.group.save()
         cls.form = SquadsGroupForm(instance=cls.group)

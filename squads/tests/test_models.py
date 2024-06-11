@@ -19,7 +19,7 @@ class GroupsModelTest(TestCase):
         self.assertEqual(group.owner, self.user)
         self.assertEqual(group.description, "A test group")
         self.assertTrue(group.is_active)
-        self.assertFalse(group.require_approval)
+        self.assertFalse(group.req_approve)
         self.assertIsNotNone(group.created_at)
         self.assertIsNotNone(group.updated_at)
 

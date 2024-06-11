@@ -19,6 +19,7 @@ def run_check_squads(runs: int = 0):
         logger.debug("Checking group: %s", group.name)
         runs = runs + 1
         Chain(run_check_members.si(group.pk)).delay()
+        Chain(run_check_pendings.si(group.pk)).delay()
 
     logger.info("Check Squads runs completed: %s", runs)
 

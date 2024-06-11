@@ -4,8 +4,8 @@ from ninja import NinjaAPI
 
 from squads.api import schema
 from squads.hooks import get_extension_logger
-from squads.models.groups import Groups, Pending
-from squads.models.memberships import Memberships
+from squads.models.groups import Groups
+from squads.models.member import Memberships, Pending
 
 logger = get_extension_logger(__name__)
 
@@ -39,9 +39,10 @@ class ManageApiEndpoints:
                         "group_id": pending.group.pk,
                         "user": pending.user.username,
                         "approved": pending.approved,
-                        "created_at": pending.created_at,
-                        "application": pending.application,
+                        "req_filters": pending.req_filters,
                         "application_id": pending.application_id,
+                        "comment": pending.comment,
+                        "created_at": pending.created_at,
                     }
                 )
 
@@ -70,7 +71,7 @@ class ManageApiEndpoints:
                         "group": member.group.name,
                         "group_id": member.group.pk,
                         "user": member.user.username,
-                        "has_required_skills": member.has_required_skills,
+                        "req_filters": member.req_filters,
                         "is_active": member.is_active,
                         "joined_at": member.joined_at,
                         "application_id": member.application_id,

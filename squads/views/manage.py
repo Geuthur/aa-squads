@@ -9,8 +9,8 @@ from django.utils.safestring import mark_safe
 from squads.app_settings import SQUADS_EMPTY_IMAGE
 from squads.forms import SquadsGroupForm
 from squads.hooks import get_extension_logger
-from squads.models.groups import Groups, Pending
-from squads.models.memberships import Memberships
+from squads.models.groups import Groups
+from squads.models.member import Memberships, Pending
 from squads.views._core import check_permission
 
 logger = get_extension_logger(__name__)

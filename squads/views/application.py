@@ -6,8 +6,8 @@ from django.shortcuts import get_object_or_404, redirect
 
 from squads.forms import CommentForm
 from squads.hooks import get_extension_logger
-from squads.models.groups import Groups, Pending
-from squads.models.memberships import Memberships
+from squads.models.groups import Groups
+from squads.models.member import Memberships, Pending
 
 logger = get_extension_logger(__name__)
 
