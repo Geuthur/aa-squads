@@ -79,6 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
         columnDefs: [
             {
                 targets: 4,
+                className: 'text-end',
                 sortable: false,
                 render: function (data, type, row) {
                     var deleteTemplate = "{% url 'squads:delete_membership' '0' %}";
