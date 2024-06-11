@@ -23,7 +23,7 @@ def apply_group(request, group_id):
         comment = None
         if comment_form.is_valid():
             comment = comment_form.cleaned_data.get("comment")
-        Pending.objects.create(group=group, user=user, application=comment)
+        Pending.objects.create(group=group, user=user, comment=comment)
         messages.success(request, "Your application has been submitted.")
         return redirect("squads:view_group", group_id=group_id)
 
