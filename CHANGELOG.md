@@ -1,5 +1,23 @@
 # Changelog
 
+## \[0.2.2\] - 2024-06-11
+
+### Added
+
+- Is Active Check
+- Req. Approve Check
+- Browse Groups now sorted
+
+### Changed
+
+- Squad View CSS Update
+- Squad Manage CSS Update
+
+### Fixed
+
+- Manage Squads Admins can't see Squads from other Owners
+- Update Is Active not working on edit
+
 ## \[0.2.1\] - 2024-06-11
 
 ### Changed

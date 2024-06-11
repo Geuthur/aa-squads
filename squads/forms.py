@@ -22,7 +22,7 @@ class CustomClearableFileInput(ClearableFileInput):
 class SquadsGroupForm(forms.ModelForm):
     class Meta:
         model = Groups
-        fields = ["name", "description", "require_approval", "image"]
+        fields = ["name", "description", "require_approval", "is_active", "image"]
         widgets = {
             "image": CustomClearableFileInput(),
         }
@@ -32,16 +32,13 @@ class SquadsGroupForm(forms.ModelForm):
         self.fields["name"].widget.attrs.update(
             {"class": "form-control", "maxlength": "26", "required": True}
         )
-        self.fields["description"].widget.attrs.update({"class": "form-control"})
-        self.fields["description"].max_length = 1000
+        self.fields["description"].widget.attrs.update(
+            {"class": "form-control", "maxlength": "1000", "rows": "5"}
+        )
         self.fields["require_approval"].widget.attrs.update(
             {"class": "form-check-input"}
         )
-        if self.instance.pk:
-            self.fields["is_active"] = forms.BooleanField(
-                required=False, label="Is Active", initial=self.instance.is_active
-            )
-            self.fields["is_active"].widget.attrs.update({"class": "form-check-input"})
+        self.fields["is_active"].widget.attrs.update({"class": "form-check-input"})
 
     def clean_name(self):
         name = self.cleaned_data.get("name")

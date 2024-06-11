@@ -76,6 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
         columnDefs: [
             {
                 targets: 3,
+                className: 'text-end',
                 sortable: false,
                 render: function (data, type, row) {
                     var manageTemplate = "{% url 'squads:edit_group' '0' %}";

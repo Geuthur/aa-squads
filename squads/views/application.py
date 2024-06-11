@@ -18,20 +18,24 @@ def apply_group(request, group_id):
     group = get_object_or_404(Groups, id=group_id)
     comment_form = CommentForm(request.POST or None)
 
-    user_has_required_skills = True
-
-    if user_has_required_skills:
+    if request.method == "POST" and "apply_group" in request.POST:
         user = request.user
         comment = None
         if comment_form.is_valid():
             comment = comment_form.cleaned_data.get("comment")
         Pending.objects.create(group=group, user=user, application=comment)
         messages.success(request, "Your application has been submitted.")
-    else:
-        messages.error(
-            request, "You do not meet the skill requirements for this Squad."
-        )
+        return redirect("squads:view_group", group_id=group_id)
 
+    if request.method == "POST" and "join_group" in request.POST:
+        Memberships.objects.create(
+            group=group,
+            user=request.user,
+            has_required_skills=True,
+            is_active=True,
+        )
+        messages.success(request, f"You joined {group.name}.")
+        return redirect("squads:view_group", group_id=group_id)
     return redirect("squads:view_group", group_id=group_id)
 
 
@@ -43,7 +47,7 @@ def leave_group(request, group_id):
 
     if membership:
         membership.delete()
-        messages.success(request, f"You Left {membership.group.name}.")
+        messages.warning(request, f"You Left {membership.group.name}.")
     else:
         messages.error(request, "You are not in that Squad.")
 
@@ -58,7 +62,7 @@ def cancel_group(request, group_id):
 
     if pending:
         pending.delete()
-        messages.success(
+        messages.warning(
             request, f"You canceled your application to {pending.group.name}."
         )
     else:

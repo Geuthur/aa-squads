@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
         columnDefs: [
             {
                 targets: 4,
+                className: 'text-end',
                 sortable: false,
                 render: function (data, type, row) {
                     var applyTemplate = "{% url 'squads:accept_group' '0' %}";
