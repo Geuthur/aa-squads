@@ -1,5 +1,15 @@
 # Changelog
 
+## \[0.2.1\] - 2024-06-11
+
+### Changed
+
+- Squad View CSS Update
+
+### Fixed
+
+- Image Error on Update Squad
+
 ## \[0.2.0\] - 2024-06-10
 
 ### Added
