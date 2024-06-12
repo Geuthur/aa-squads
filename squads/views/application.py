@@ -17,10 +17,9 @@ logger = get_extension_logger(__name__)
 def apply_group(request, group_id):
     group = get_object_or_404(Groups, id=group_id)
     comment_form = CommentForm(request.POST or None)
-
     if request.method == "POST" and "apply_group" in request.POST:
         user = request.user
-        comment = None
+        comment = ""
         if comment_form.is_valid():
             comment = comment_form.cleaned_data.get("comment")
         Pending.objects.create(group=group, user=user, comment=comment)
