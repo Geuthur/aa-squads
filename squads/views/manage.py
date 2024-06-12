@@ -34,14 +34,16 @@ def manage_application_accept(request, application_id):
         Memberships.objects.create(
             group=pending.group,
             user=pending.user,
-            has_required_skills=True,
+            req_filters=True,
             is_active=True,
         )
         Pending.objects.filter(application_id=application_id).delete()
         messages.success(request, f"{pending.user.username} has been approved.")
+        logger.info(
+            "%s has approved %s in %s.", request.user, pending.user, pending.group
+        )
     else:
         messages.error(request, "%s does not exist.", application_id)
-
     return redirect("squads:manage_pendings")
 
 
@@ -60,9 +62,11 @@ def manage_application_decline(request, application_id):
     if pending:
         Pending.objects.filter(application_id=application_id).delete()
         messages.success(request, f"{pending.user.username} has been declined.")
+        logger.info(
+            "%s has declined %s in %s.", request.user, pending.user, pending.group
+        )
     else:
         messages.error(request, f"{application_id} does not exist.")
-
     return redirect("squads:manage_pendings")
 
 
@@ -102,9 +106,14 @@ def delete_membership(request, application_id):
     if membership:
         Memberships.objects.filter(application_id=application_id).delete()
         messages.success(request, f"{membership.user.username} has been removed.")
+        logger.info(
+            "%s has removed %s from %s.",
+            request.user,
+            membership.user,
+            membership.group,
+        )
     else:
         messages.error(request, f"{application_id} does not exist.")
-
     return redirect("squads:manage_members")
 
 
@@ -133,6 +142,7 @@ def delete_group(request, group_id):
     if group:
         Groups.objects.filter(pk=group_id).delete()
         messages.success(request, f"{group.name} has been removed.")
+        logger.info("%s has removed %s.", request.user, group)
     else:
         messages.error(request, f"{group_id} does not exist.")
 

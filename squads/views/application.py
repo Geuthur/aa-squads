@@ -31,7 +31,7 @@ def apply_group(request, group_id):
         Memberships.objects.create(
             group=group,
             user=request.user,
-            has_required_skills=True,
+            req_filters=True,
             is_active=True,
         )
         messages.success(request, f"You joined {group.name}.")
