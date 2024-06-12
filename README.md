@@ -22,12 +22,13 @@
 - Detailed Squad Information (html)
 - Squad Filters
 - Overview of Members in Squads
+- Check Member States if they met Filters
+- Updating Member States on Filter changes
 
 ## Upcoming<a name="upcoming"></a>
 
-- Updating Squad Membership on state change.
-- Updating Members State on Filter changes.
 - More Filters.
+- Missing Skills can be imported from EVE Online Skillplaner
 
 ## Installation<a name="installation"></a>
 
@@ -53,10 +54,12 @@ Configure your Alliance Auth settings (`local.py`) as follows:
 
 ### Step 3 - Add the Scheduled Tasks<a name="step3"></a>
 
+You can change the interval if you want.
+
 ```python
 CELERYBEAT_SCHEDULE["run_check_squads"] = {
     "task": "squads.tasks.run_check_squads",
-    "schedule": crontab(hour="*/23"),
+    "schedule": crontab(hour="*/12"),
 }
 ```
 
