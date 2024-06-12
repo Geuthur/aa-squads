@@ -50,7 +50,8 @@ def run_check_members(group_id: int, runs: int = 0):
             runs,
             changed_state,
         )
-    return True
+        return True
+    return False
 
 
 # TODO Maybe delete Member on filter fail??
@@ -79,4 +80,5 @@ def run_check_pendings(group_id: int, runs: int = 0):
             runs,
             changed_state,
         )
-    return True
+        return True
+    return False

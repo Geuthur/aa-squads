@@ -8,7 +8,11 @@ from django.core.exceptions import ValidationError
 from django.forms.widgets import ClearableFileInput
 from django.utils.translation import gettext_lazy as _
 
+from squads.hooks import get_extension_logger
+
 from .models import Groups
+
+logger = get_extension_logger(__name__)
 
 
 class CustomClearableFileInput(ClearableFileInput):

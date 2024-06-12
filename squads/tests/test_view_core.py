@@ -15,7 +15,7 @@ class CoreTests(TestCase):
         self.factory = RequestFactory()
         self.group = Groups.objects.create(owner=self.user, name="Test Group")
 
-    @patch("squads.models.groups.Pending.objects.filter")
+    @patch("squads.models.member.Pending.objects.filter")
     def test_add_info_to_context(self, mock_filter):
         mock_filter.return_value.count.return_value = 5
         request = self.factory.get("/")

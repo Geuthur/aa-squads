@@ -46,5 +46,8 @@ class Pending(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self) -> str:
+        return f"{self.user} pending {self.group.name}"
+
     class Meta:
         default_permissions = ()
