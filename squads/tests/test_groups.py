@@ -9,7 +9,7 @@ class SquadsGroupFormTest(TestCase):
         form_data = {
             "name": "Test Group",
             "description": "a" * 1001,
-            "require_approval": False,
+            "req_approve": False,
         }
         # when
         form = SquadsGroupForm(data=form_data)
@@ -26,7 +26,7 @@ class SquadsGroupFormTest(TestCase):
         form_data = {
             "name": "Test Group",
             "description": "<p>This is a valid description.</p>",
-            "require_approval": False,
+            "req_approve": False,
         }
         # when
         form = SquadsGroupForm(data=form_data)
@@ -38,7 +38,7 @@ class SquadsGroupFormTest(TestCase):
         form_data = {
             "name": "Test Group",
             "description": '<script>alert("Hack!");</script><p>This is a valid part of the description.</p>',
-            "require_approval": False,
+            "req_approve": False,
         }
         # when
         form = SquadsGroupForm(data=form_data)

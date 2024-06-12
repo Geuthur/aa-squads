@@ -8,7 +8,11 @@ from django.core.exceptions import ValidationError
 from django.forms.widgets import ClearableFileInput
 from django.utils.translation import gettext_lazy as _
 
+from squads.hooks import get_extension_logger
+
 from .models import Groups
+
+logger = get_extension_logger(__name__)
 
 
 class CustomClearableFileInput(ClearableFileInput):
@@ -22,7 +26,7 @@ class CustomClearableFileInput(ClearableFileInput):
 class SquadsGroupForm(forms.ModelForm):
     class Meta:
         model = Groups
-        fields = ["name", "description", "require_approval", "is_active", "image"]
+        fields = ["name", "description", "req_approve", "is_active", "image"]
         widgets = {
             "image": CustomClearableFileInput(),
         }
@@ -35,9 +39,7 @@ class SquadsGroupForm(forms.ModelForm):
         self.fields["description"].widget.attrs.update(
             {"class": "form-control", "maxlength": "1000", "rows": "5"}
         )
-        self.fields["require_approval"].widget.attrs.update(
-            {"class": "form-check-input"}
-        )
+        self.fields["req_approve"].widget.attrs.update({"class": "form-check-input"})
         self.fields["is_active"].widget.attrs.update({"class": "form-check-input"})
 
     def clean_name(self):

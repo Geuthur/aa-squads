@@ -2,7 +2,7 @@
 {% load navactive %}
 
 <li class="nav-item">
-    <a class="nav-link" href="{% url 'squads:index' %}">Squads</a>
+    <a class="nav-link" href="{% url 'squads:groups' %}">Squads</a>
 </li>
 
 {% if perms.squads.admin_access or perms.squads.squad_manager %}

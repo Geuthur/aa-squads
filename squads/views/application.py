@@ -6,8 +6,8 @@ from django.shortcuts import get_object_or_404, redirect
 
 from squads.forms import CommentForm
 from squads.hooks import get_extension_logger
-from squads.models.groups import Groups, Pending
-from squads.models.memberships import Memberships
+from squads.models.groups import Groups
+from squads.models.member import Memberships, Pending
 
 logger = get_extension_logger(__name__)
 
@@ -23,7 +23,7 @@ def apply_group(request, group_id):
         comment = None
         if comment_form.is_valid():
             comment = comment_form.cleaned_data.get("comment")
-        Pending.objects.create(group=group, user=user, application=comment)
+        Pending.objects.create(group=group, user=user, comment=comment)
         messages.success(request, "Your application has been submitted.")
         return redirect("squads:view_group", group_id=group_id)
 
@@ -31,7 +31,7 @@ def apply_group(request, group_id):
         Memberships.objects.create(
             group=group,
             user=request.user,
-            has_required_skills=True,
+            req_filters=True,
             is_active=True,
         )
         messages.success(request, f"You joined {group.name}.")

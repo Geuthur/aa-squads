@@ -21,7 +21,7 @@ class SquadsMenuItem(MenuItemHook):
         super().__init__(
             f"{app_settings.SQUADS_APP_NAME}",
             "fa-solid fa-users-between-lines",
-            "squads:index",
+            "squads:groups",
             navactive=["squads:"],
         )
 
