@@ -4,16 +4,16 @@
 
 ### Added
 
-- Squads Filter Check Task
+- Squads Filter Check Tasks
 - Pending Field `req_filters`
+- New Tests
+- Log Info on State Changes, Deletion
 
 ### Changed
 
 - Groups Renamed Fields
 - Memberships Renamed Fields
 - Pending Renamed Fields
-
-### Fixed
 
 ## \[0.2.2\] - 2024-06-11
 
