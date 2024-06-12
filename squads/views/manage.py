@@ -3,7 +3,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.db import transaction
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import redirect, render
 from django.utils.safestring import mark_safe
 
 from squads.app_settings import SQUADS_EMPTY_IMAGE
@@ -21,7 +21,12 @@ logger = get_extension_logger(__name__)
 @permission_required("squads.squad_manager")
 @transaction.atomic
 def manage_application_accept(request, application_id):
-    pending = get_object_or_404(Pending, application_id=application_id)
+    try:
+        pending = Pending.objects.get(application_id=application_id)
+    except Pending.DoesNotExist:
+        messages.error(request, "%s does not exist.", application_id)
+        return redirect("squads:manage_pendings")
+
     permission = check_permission(request, pending.group)
 
     if not permission:
@@ -30,27 +35,27 @@ def manage_application_accept(request, application_id):
         )
         return redirect("squads:manage_pendings")
 
-    if pending:
-        Memberships.objects.create(
-            group=pending.group,
-            user=pending.user,
-            req_filters=True,
-            is_active=True,
-        )
-        Pending.objects.filter(application_id=application_id).delete()
-        messages.success(request, f"{pending.user.username} has been approved.")
-        logger.info(
-            "%s has approved %s in %s.", request.user, pending.user, pending.group
-        )
-    else:
-        messages.error(request, "%s does not exist.", application_id)
+    Memberships.objects.create(
+        group=pending.group,
+        user=pending.user,
+        req_filters=True,
+        is_active=True,
+    )
+    Pending.objects.filter(application_id=application_id).delete()
+    messages.success(request, f"{pending.user.username} has been approved.")
+    logger.info("%s has approved %s in %s.", request.user, pending.user, pending.group)
     return redirect("squads:manage_pendings")
 
 
 @login_required
 @permission_required("squads.squad_manager")
 def manage_application_decline(request, application_id):
-    pending = get_object_or_404(Pending, application_id=application_id)
+    try:
+        pending = Pending.objects.get(application_id=application_id)
+    except Pending.DoesNotExist:
+        messages.error(request, f"{application_id} does not exist.")
+        return redirect("squads:manage_pendings")
+
     permission = check_permission(request, pending.group)
 
     if not permission:
@@ -59,14 +64,9 @@ def manage_application_decline(request, application_id):
         )
         return redirect("squads:manage_pendings")
 
-    if pending:
-        Pending.objects.filter(application_id=application_id).delete()
-        messages.success(request, f"{pending.user.username} has been declined.")
-        logger.info(
-            "%s has declined %s in %s.", request.user, pending.user, pending.group
-        )
-    else:
-        messages.error(request, f"{application_id} does not exist.")
+    Pending.objects.filter(application_id=application_id).delete()
+    messages.success(request, f"{pending.user.username} has been declined.")
+    logger.info("%s has declined %s in %s.", request.user, pending.user, pending.group)
     return redirect("squads:manage_pendings")
 
 
@@ -96,24 +96,26 @@ def manage_members(request):
 @login_required
 @permission_required("squads.squad_manager")
 def delete_membership(request, application_id):
-    membership = get_object_or_404(Memberships, application_id=application_id)
+    try:
+        membership = Memberships.objects.get(application_id=application_id)
+    except Memberships.DoesNotExist:
+        messages.error(request, f"{application_id} does not exist.")
+        return redirect("squads:manage_members")
+
     permission = check_permission(request, membership.group)
 
     if not permission:
         messages.error(request, "You do not have permission to delete this membership.")
         return redirect("squads:manage_members")
 
-    if membership:
-        Memberships.objects.filter(application_id=application_id).delete()
-        messages.success(request, f"{membership.user.username} has been removed.")
-        logger.info(
-            "%s has removed %s from %s.",
-            request.user,
-            membership.user,
-            membership.group,
-        )
-    else:
-        messages.error(request, f"{application_id} does not exist.")
+    Memberships.objects.filter(application_id=application_id).delete()
+    messages.success(request, f"{membership.user.username} has been removed.")
+    logger.info(
+        "%s has removed %s from %s.",
+        request.user,
+        membership.user,
+        membership.group,
+    )
     return redirect("squads:manage_members")
 
 
@@ -132,27 +134,33 @@ def manage_groups(request):
 @login_required
 @permission_required("squads.squad_manager")
 def delete_group(request, group_id):
-    group = get_object_or_404(Groups, pk=group_id)
+    try:
+        group = Groups.objects.get(pk=group_id)
+    except Groups.DoesNotExist:
+        messages.error(request, f"{group_id} does not exist.")
+        return redirect("squads:manage_groups")
+
     permission = check_permission(request, group)
 
     if not permission:
         messages.error(request, "You do not have permission to delete this group.")
         return redirect("squads:manage_groups")
 
-    if group:
-        Groups.objects.filter(pk=group_id).delete()
-        messages.success(request, f"{group.name} has been removed.")
-        logger.info("%s has removed %s.", request.user, group)
-    else:
-        messages.error(request, f"{group_id} does not exist.")
-
+    Groups.objects.filter(pk=group_id).delete()
+    messages.success(request, f"{group.name} has been removed.")
+    logger.info("%s has removed %s.", request.user, group)
     return redirect("squads:manage_groups")
 
 
 @login_required
 @permission_required("squads.squad_manager")
 def edit_group(request, group_id):
-    group_data = get_object_or_404(Groups, pk=group_id)
+    try:
+        group_data = Groups.objects.get(pk=group_id)
+    except Groups.DoesNotExist:
+        messages.error(request, f"{group_id} does not exist.")
+        return redirect("squads:manage_groups")
+
     permission = check_permission(request, group_data)
 
     if not permission:
@@ -164,11 +172,16 @@ def edit_group(request, group_id):
         if form.is_valid():
             group_edit = form.save(commit=False)
             group_edit.description = mark_safe(group_edit.description)
+            print("valid")
             if not group_edit.image:
+                print("no image")
                 group_edit.image = SQUADS_EMPTY_IMAGE
+            print("saving")
             group_edit.save()
+            print("lul")
             messages.success(request, f"{group_data.name} has been updated.")
             return redirect("squads:manage_groups")
+        print("invalid")
         messages.error(request, "Something went wrong.")
         return render(
             request,

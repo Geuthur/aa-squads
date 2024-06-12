@@ -1,7 +1,9 @@
 from http import HTTPStatus
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 from django.contrib.auth.models import User
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.db.models.fields.files import ImageField, ImageFieldFile
 from django.http import HttpResponseRedirect
 from django.test import TestCase
 from django.test.client import RequestFactory
@@ -9,13 +11,24 @@ from django.urls import reverse
 
 from allianceauth.tests.auth_utils import AuthUtils
 
+from squads.forms import SquadsGroupForm
 from squads.models.groups import Groups
 from squads.models.member import Memberships, Pending
 from squads.tests.testdata.load_allianceauth import load_allianceauth
-from squads.tests.testdata.load_groups import load_groups
+from squads.tests.testdata.load_groups import load_groups, load_membership, load_pending
 from squads.tests.testdata.load_users import load_users
 from squads.views.application import apply_group, cancel_group, leave_group
 from squads.views.main import squads_index, squads_membership, squads_pending
+from squads.views.manage import (
+    delete_group,
+    delete_membership,
+    edit_group,
+    manage_application_accept,
+    manage_application_decline,
+    manage_groups,
+    manage_members,
+    manage_pendings,
+)
 
 
 class TestViews(TestCase):
@@ -51,10 +64,9 @@ class TestViews(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
 
-class GroupApplicationTests(TestCase):
+class TestGroupTests(TestCase):
     @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
+    def setUp(cls):
         load_allianceauth()
         load_users()
         load_groups()
@@ -184,3 +196,395 @@ class GroupApplicationTests(TestCase):
         self.assertEqual(Pending.objects.count(), 1)
 
         mock_messages.error.assert_called_once()
+
+
+class TestApplicationManagement(TestCase):
+    @classmethod
+    def setUp(self):
+        load_allianceauth()
+        load_users()
+        load_groups()
+        self.factory = RequestFactory()
+        self.user = User.objects.get(username="groupuser")
+        self.user2 = User.objects.get(username="groupuser2")
+        self.group = Groups.objects.get(id=1)
+        self.group2 = Groups.objects.get(id=2)
+        AuthUtils.add_permission_to_user_by_name("squads.basic_access", self.user)
+        AuthUtils.add_permission_to_user_by_name("squads.squad_manager", self.user)
+
+    @patch("squads.views.manage.messages")
+    def test_manage_application_accept(self, mock_messages):
+        # given
+        load_pending()
+        AuthUtils.add_permission_to_user_by_name("squads.squad_manager", self.user)
+        AuthUtils.add_permission_to_user_by_name("squads.squad_admin", self.user)
+        self.client.force_login(self.user)
+        request = self.factory.post(
+            reverse("squads:accept_group", args=["cf2605fa1ff2"])
+        )
+        request.user = self.user
+        # when
+        response = manage_application_accept(request, "cf2605fa1ff2")
+        # then
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.assertTrue(
+            Memberships.objects.filter(user=self.user2, group=self.group2).exists()
+        )
+        self.assertFalse(
+            Pending.objects.filter(
+                user=self.user2, group=self.group2, application_id="cf2605fa1ff2"
+            ).exists()
+        )
+        mock_messages.success.assert_called_once()
+
+    @patch("squads.views.manage.messages")
+    def test_manage_application_accept_not_exist(self, mock_messages):
+        # given
+        load_pending()
+        AuthUtils.add_permission_to_user_by_name("squads.squad_manager", self.user)
+        AuthUtils.add_permission_to_user_by_name("squads.squad_admin", self.user)
+        self.client.force_login(self.user)
+        request = self.factory.post(
+            reverse("squads:accept_group", args=["cf2605fa1ff9"])
+        )
+        request.user = self.user
+        # when
+        response = manage_application_accept(request, "cf2605fa1ff9")
+        # then
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        mock_messages.error.assert_called_once()
+
+    @patch("squads.views.manage.messages")
+    def test_manage_application_accept_no_permission(self, mock_messages):
+        # given
+        load_pending()
+        self.client.force_login(self.user)
+        request = self.factory.post(
+            reverse("squads:accept_group", args=["cf2605fa1ff2"])
+        )
+        request.user = self.user
+        # when
+        response = manage_application_accept(request, "cf2605fa1ff2")
+        # then
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        mock_messages.error.assert_called_once()
+
+    @patch("squads.views.manage.messages")
+    def test_manage_application_decline(self, mock_messages):
+        # given
+        load_pending()
+        AuthUtils.add_permission_to_user_by_name("squads.squad_manager", self.user)
+        AuthUtils.add_permission_to_user_by_name("squads.squad_admin", self.user)
+        self.client.force_login(self.user)
+        request = self.factory.post(
+            reverse("squads:decline_group", args=["cf2605fa1ff2"])
+        )
+        request.user = self.user
+        # when
+        response = manage_application_decline(request, "cf2605fa1ff2")
+        # then
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.assertFalse(
+            Pending.objects.filter(
+                user=self.user2, group=self.group2, application_id="cf2605fa1ff2"
+            ).exists()
+        )
+        mock_messages.success.assert_called_once()
+
+    @patch("squads.views.manage.messages")
+    def test_manage_application_decline_not_exist(self, mock_messages):
+        # given
+        load_pending()
+        AuthUtils.add_permission_to_user_by_name("squads.squad_manager", self.user)
+        AuthUtils.add_permission_to_user_by_name("squads.squad_admin", self.user)
+        self.client.force_login(self.user)
+        request = self.factory.post(
+            reverse("squads:decline_group", args=["cf2605fa1ff9"])
+        )
+        request.user = self.user
+        # when
+        response = manage_application_decline(request, "cf2605fa1ff9")
+        # then
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        mock_messages.error.assert_called_once()
+
+    @patch("squads.views.manage.messages")
+    def test_manage_application_decline_no_permission(self, mock_messages):
+        # given
+        load_pending()
+        self.client.force_login(self.user)
+        request = self.factory.post(
+            reverse("squads:decline_group", args=["cf2605fa1ff2"])
+        )
+        request.user = self.user
+        # when
+        response = manage_application_decline(request, "cf2605fa1ff2")
+        # then
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        mock_messages.error.assert_called_once()
+
+    def test_manage_pendings(self):
+        # given
+        load_pending()
+        AuthUtils.add_permission_to_user_by_name("squads.squad_manager", self.user)
+        AuthUtils.add_permission_to_user_by_name("squads.squad_admin", self.user)
+        self.client.force_login(self.user)
+        # when
+        request = self.factory.get(reverse("squads:manage_pendings"))
+        request.user = self.user
+        response = manage_pendings(request)
+        # then
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+
+class TestMembershipManagement(TestCase):
+    @classmethod
+    def setUp(self):
+        load_allianceauth()
+        load_users()
+        load_groups()
+        self.factory = RequestFactory()
+        self.user = User.objects.get(username="groupuser")
+        self.user2 = User.objects.get(username="groupuser2")
+        self.group = Groups.objects.get(id=1)
+        self.group2 = Groups.objects.get(id=2)
+        AuthUtils.add_permission_to_user_by_name("squads.basic_access", self.user)
+        AuthUtils.add_permission_to_user_by_name("squads.squad_manager", self.user)
+
+    def test_manage_members(self):
+        # given
+        load_membership()
+        AuthUtils.add_permission_to_user_by_name("squads.squad_admin", self.user)
+        self.client.force_login(self.user)
+        # when
+        request = self.factory.get(reverse("squads:manage_members"))
+        request.user = self.user
+        response = manage_members(request)
+        # then
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+    @patch("squads.views.manage.messages")
+    def test_delete_membership(self, mock_messages):
+        # given
+        load_membership()
+        AuthUtils.add_permission_to_user_by_name("squads.squad_admin", self.user)
+        self.client.force_login(self.user)
+        request = self.factory.post(
+            reverse("squads:delete_membership", args=["cf2605fa1ff2"])
+        )
+        request.user = self.user
+        # when
+        response = delete_membership(request, "cf2605fa1ff2")
+        # then
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.assertFalse(
+            Memberships.objects.filter(user=self.user2, group=self.group2).exists()
+        )
+        mock_messages.success.assert_called_once()
+
+    @patch("squads.views.manage.messages")
+    def test_delete_membership_not_exist(self, mock_messages):
+        # given
+        load_membership()
+        AuthUtils.add_permission_to_user_by_name("squads.squad_admin", self.user)
+        self.client.force_login(self.user)
+        request = self.factory.post(
+            reverse("squads:delete_membership", args=["cf2605fa1ff9"])
+        )
+        request.user = self.user
+        # when
+        response = delete_membership(request, "cf2605fa1ff9")
+        # then
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        mock_messages.error.assert_called_once()
+
+    @patch("squads.views.manage.messages")
+    def test_delete_membership_no_permission(self, mock_messages):
+        # given
+        load_membership()
+        self.client.force_login(self.user)
+        request = self.factory.post(
+            reverse("squads:delete_membership", args=["cf2605fa1ff2"])
+        )
+        request.user = self.user
+        # when
+        response = delete_membership(request, "cf2605fa1ff2")
+        # then
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        mock_messages.error.assert_called_once()
+
+
+class TestGroupManagement(TestCase):
+    @classmethod
+    def setUp(self):
+        load_allianceauth()
+        load_users()
+        load_groups()
+        self.factory = RequestFactory()
+        self.user = User.objects.get(username="groupuser")
+        self.user2 = User.objects.get(username="groupuser2")
+        self.group = Groups.objects.get(id=1)
+        self.group2 = Groups.objects.get(id=2)
+        AuthUtils.add_permission_to_user_by_name("squads.basic_access", self.user)
+        AuthUtils.add_permission_to_user_by_name("squads.squad_manager", self.user)
+
+    def test_manage_groups(self):
+        # given
+        AuthUtils.add_permission_to_user_by_name("squads.squad_admin", self.user)
+        self.client.force_login(self.user)
+        # when
+        request = self.factory.get(reverse("squads:manage_groups"))
+        request.user = self.user
+        response = manage_groups(request)
+        # then
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+    @patch("squads.views.manage.messages")
+    def test_delete_group(self, mock_messages):
+        # given
+        AuthUtils.add_permission_to_user_by_name("squads.squad_admin", self.user)
+        self.client.force_login(self.user)
+        request = self.factory.post(reverse("squads:delete_group", args=[1]))
+        request.user = self.user
+        # when
+        response = delete_group(request, 1)
+        # then
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.assertFalse(Groups.objects.filter(id=1).exists())
+        mock_messages.success.assert_called_once()
+
+    @patch("squads.views.manage.messages")
+    def test_delete_group_not_exist(self, mock_messages):
+        # given
+        AuthUtils.add_permission_to_user_by_name("squads.squad_admin", self.user)
+        self.client.force_login(self.user)
+        request = self.factory.post(reverse("squads:delete_group", args=[9]))
+        request.user = self.user
+        # when
+        response = delete_group(request, 9)
+        # then
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        mock_messages.error.assert_called_once()
+
+    @patch("squads.views.manage.messages")
+    def test_delete_group_no_permission(self, mock_messages):
+        # given
+        self.client.force_login(self.user)
+        request = self.factory.post(reverse("squads:delete_group", args=[2]))
+        request.user = self.user
+        # when
+        response = delete_group(request, 2)
+        # then
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+
+        mock_messages.error.assert_called_once()
+
+    @patch("squads.views.manage.messages")
+    def test_edit_group(self, mock_messages):
+        # given
+        AuthUtils.add_permission_to_user_by_name("squads.squad_admin", self.user)
+        self.client.force_login(self.user)
+        request = self.factory.post(
+            reverse("squads:edit_group", args=[1]),
+            {
+                "name": "Test Group",
+                "description": "Test Description",
+                "req_approve": True,
+            },
+        )
+        request.user = self.user
+        # when
+        response = edit_group(request, 1)
+        # then
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.assertTrue(
+            Groups.objects.filter(
+                id=1,
+                name="Test Group",
+                description="Test Description",
+                req_approve=True,
+            ).exists()
+        )
+        mock_messages.success.assert_called_once()
+
+    @patch("squads.views.manage.messages")
+    def test_edit_group_not_exist(self, mock_messages):
+        # given
+        AuthUtils.add_permission_to_user_by_name("squads.squad_admin", self.user)
+        self.client.force_login(self.user)
+        request = self.factory.post(
+            reverse("squads:edit_group", args=[9]),
+            {
+                "name": "Test Group",
+                "description": "Test Description",
+                "req_approve": True,
+            },
+        )
+        request.user = self.user
+        # when
+        response = edit_group(request, 9)
+        # then
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        mock_messages.error.assert_called_once()
+
+    @patch("squads.views.manage.messages")
+    def test_edit_group_no_permission(self, mock_messages):
+        # given
+        self.client.force_login(self.user)
+        request = self.factory.post(
+            reverse("squads:edit_group", args=[2]),
+            {
+                "name": "Test Group",
+                "description": "Test Description",
+                "req_approve": True,
+            },
+        )
+        request.user = self.user
+        # when
+        response = edit_group(request, 2)
+        # then
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        mock_messages.error.assert_called_once()
+
+    @patch("squads.views.manage.messages")
+    def test_edit_group_invalid_form(self, mock_messages):
+        # given
+        self.client.force_login(self.user)
+        request = self.factory.post(
+            reverse("squads:edit_group", args=[1]),
+            {"name": "", "description": "Test Description"},
+        )
+        request.user = self.user
+        # when
+        response = edit_group(request, 1)
+        # then
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        mock_messages.error.assert_called_once()
+
+    @patch("squads.views.manage.messages")
+    def test_edit_group_no_post(self, mock_messages):
+        # given
+        self.client.force_login(self.user)
+        request = self.factory.get(reverse("squads:edit_group", args=[1]))
+        request.user = self.user
+        # when
+        response = edit_group(request, 1)
+        # then
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+    @patch("squads.views.manage.messages")
+    def test_edit_group_no_image(self, mock_messages):
+        # given
+        self.client.force_login(self.user)
+        post_data = {"name": "Test Group", "description": "Test Description"}
+        files_data = {"image": None}
+
+        request = self.factory.post(
+            reverse("squads:edit_group", args=[1]), data=post_data, FILES=files_data
+        )
+        request.user = self.user
+        # when
+        response = edit_group(request, 1)
+        # then
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        mock_messages.success.assert_called_once()
