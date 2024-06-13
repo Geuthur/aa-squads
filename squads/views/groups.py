@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import transaction
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import redirect, render
 from django.utils.safestring import mark_safe
 
 from squads.app_settings import SQUADS_EMPTY_IMAGE
@@ -71,7 +71,12 @@ def broswe_groups(request):
 @login_required
 @permission_required("squads.basic_access")
 def view_group(request, group_id):
-    group = get_object_or_404(Groups, id=group_id)
+    try:
+        group = Groups.objects.get(id=group_id)
+    except Groups.DoesNotExist:
+        messages.error(request, "Group does not exist.")
+        return redirect("squads:groups")
+
     comment_form = CommentForm(request.POST or None)
     pending_application = Pending.objects.filter(group=group, user=request.user).first()
     membership = Memberships.objects.filter(user=request.user, group=group).first()

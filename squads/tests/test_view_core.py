@@ -5,13 +5,15 @@ from django.contrib.auth.models import User
 from django.test import RequestFactory, TestCase
 
 from squads.models.groups import Groups
+from squads.tests.testdata.load_users import load_users
 from squads.view_helpers.core import generate_unique_id
 from squads.views import _core
 
 
 class CoreTests(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user(username="testuser", password="12345")
+        load_users()
+        self.user = User.objects.get(username="groupuser")
         self.factory = RequestFactory()
         self.group = Groups.objects.create(owner=self.user, name="Test Group")
 
