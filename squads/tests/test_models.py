@@ -1,4 +1,4 @@
-from unittest.mock import patch
+from unittest.mock import PropertyMock, patch
 
 from django.test import TestCase
 
@@ -123,6 +123,12 @@ class FilterModelTest(TestCase):
                 "squads.basic_access",
             ],
         )
+        cls.user3, _ = create_user_from_evecharacter(
+            1002,
+            permissions=[
+                "squads.basic_access",
+            ],
+        )
 
     def test_squad_group_str_method(self):
         # given/when
@@ -138,13 +144,37 @@ class FilterModelTest(TestCase):
 
     def test_skill_check_filter_valid(self):
         # given
+        filter = filters.SkillSetFilter.objects.first()
+        # when
+        filter_req, _ = filter.check_filter(self.user)
+        # then
+        self.assertTrue(filter_req)
+
+    def test_skill_check_filter_not_valid_but_skilled(self):
+        # given
+        filter = filters.SkillSetFilter.objects.first()
+        # when
+        filter_req, _ = filter.check_filter(self.user3)
+        # then
+        self.assertFalse(filter_req)
+
+    def test_skill_check_filter_not_valid(self):
+        # given
+        filter = filters.SkillSetFilter.objects.first()
+        # when
+        filter_req, _ = filter.check_filter(self.user2)
+        # then
+        self.assertFalse(filter_req)
+
+    def test_asset_check_filter_valid(self):
+        # given
         filter = filters.AssetsFilter.objects.first()
         # when
         filter_req, _ = filter.check_filter(self.user)
         # then
         self.assertTrue(filter_req)
 
-    def test_skill_check_filter_not_valid(self):
+    def test_asset_check_filter_not_valid(self):
         # given
         filter = filters.AssetsFilter.objects.first()
         # when
@@ -183,16 +213,6 @@ class FilterModelTest(TestCase):
         filter_req, _ = group.check_user(self.user2)
         # then
         self.assertFalse(filter_req)
-
-    @patch("squads.models.filters.SquadFilter.filter_object")
-    def test_squad_run_filters_none_filter(self, mock_filter_object):
-        # given
-        group = filters.SquadGroup.objects.first()
-        mock_filter_object.return_value = None
-        # when
-        filter_req, _ = group.check_user(self.user2)
-        # then
-        self.assertTrue(filter_req)
 
     @patch("squads.models.filters.SquadFilter.filter_object")
     def test_squad_run_filters_error_filter(self, mock_filter_object):
