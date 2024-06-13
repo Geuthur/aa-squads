@@ -11,11 +11,13 @@ from squads.views import _core
 
 
 class CoreTests(TestCase):
-    def setUp(self):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
         load_users()
-        self.user = User.objects.get(username="groupuser")
-        self.factory = RequestFactory()
-        self.group = Groups.objects.create(owner=self.user, name="Test Group")
+        cls.user = User.objects.get(username="groupuser")
+        cls.factory = RequestFactory()
+        cls.group = Groups.objects.create(owner=cls.user, name="Test Group")
 
     @patch("squads.models.member.Pending.objects.filter")
     def test_add_info_to_context(self, mock_filter):
@@ -43,12 +45,10 @@ class CoreTests(TestCase):
 class TestGenerateUniqueId(TestCase):
 
     def test_length_of_output(self):
-        """Test that the output is always 12 characters long."""
         unique_id = generate_unique_id()
         self.assertEqual(len(unique_id), 12)
 
     def test_uniqueness_over_time(self):
-        """Test that the function generates unique values over time."""
         unique_ids = set()
         for _ in range(5):
             unique_id = generate_unique_id()

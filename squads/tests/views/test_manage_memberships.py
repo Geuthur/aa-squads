@@ -17,16 +17,19 @@ from squads.views.manage import delete_membership, manage_members
 
 class TestMembershipManagement(TestCase):
     @classmethod
-    def setUp(self):
+    def setUpClass(cls):
+        super().setUpClass()
         load_users()
         load_groups()
-        self.factory = RequestFactory()
-        self.user = User.objects.get(username="groupuser")
-        self.user2 = User.objects.get(username="groupuser2")
-        self.group = Groups.objects.get(id=1)
-        self.group2 = Groups.objects.get(id=2)
-        AuthUtils.add_permission_to_user_by_name("squads.basic_access", self.user)
-        AuthUtils.add_permission_to_user_by_name("squads.squad_manager", self.user)
+        cls.factory = RequestFactory()
+        cls.user = User.objects.get(username="groupuser")
+        cls.user2 = User.objects.get(username="groupuser2")
+        cls.group = Groups.objects.get(id=1)
+        cls.group2 = Groups.objects.get(id=2)
+        AuthUtils.add_permission_to_user_by_name("squads.basic_access", cls.user)
+        AuthUtils.add_permission_to_user_by_name("squads.squad_manager", cls.user)
+        AuthUtils.add_permission_to_user_by_name("squads.basic_access", cls.user2)
+        AuthUtils.add_permission_to_user_by_name("squads.squad_manager", cls.user2)
 
     def test_manage_members(self):
         # given
@@ -79,13 +82,13 @@ class TestMembershipManagement(TestCase):
     def test_delete_membership_no_permission(self, mock_messages):
         # given
         load_membership()
-        self.client.force_login(self.user)
+        self.client.force_login(self.user2)
         request = self.factory.post(
-            reverse("squads:delete_membership", args=["cf2605fa1ff2"])
+            reverse("squads:delete_membership", args=["cf2605fa1ff3"])
         )
-        request.user = self.user
+        request.user = self.user2
         # when
-        response = delete_membership(request, "cf2605fa1ff2")
+        response = delete_membership(request, "cf2605fa1ff3")
         # then
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
         mock_messages.error.assert_called_once()

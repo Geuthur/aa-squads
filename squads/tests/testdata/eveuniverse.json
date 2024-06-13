@@ -11,6 +11,11 @@
             "published": true
         },
         {
+            "id": 6,
+            "name": "Ship",
+            "published": true
+        },
+        {
             "id": 25,
             "name": "Asteroid",
             "published": true
@@ -33,6 +38,13 @@
             "id": 450,
             "name": "Arkonor",
             "published": true
+        },
+        {
+            "id":485,
+            "name":"Dreadnought",
+            "last_updated":"2024-06-10 09:20:35.433772",
+            "published":1,
+            "eve_category_id":6
         }
     ],
     "EveConstellation": [
@@ -114,39 +126,21 @@
         }
     ],
     "EveType": [
-        {
-            "capacity": 0.0,
-            "description": "Gas planets are characterized by a deep, opaque upper atmosphere, usually composed primarily of light elements such as hydrogen or helium. Simple chemicals can add a range of hues and shades in the visual spectrum, and the interaction between upwellings and rapidly circulating pressure bands result in a huge variety of visible surface structures. A similar level of diversity can be found beneath the cloud-tops: the inner composition of a given gas planet might belong to any one of a dozen broad groups, with no two planets entirely alike in this regard.",
-            "enabled_sections": 0,
-            "eve_graphic_id": null,
-            "eve_group_id": 7,
-            "eve_market_group_id": null,
-            "icon_id": 10139,
-            "id": 13,
-            "mass": 1e+35,
-            "name": "Planet (Gas)",
-            "packaged_volume": 1.0,
-            "portion_size": 1,
-            "published": false,
-            "radius": 10000.0,
-            "volume": 1.0
-        },
-        {
-            "capacity": 0.0,
-            "description": "Asteroids are small, irregularly shaped rocky bodies that orbit the sun. They are smaller than planets and are sometimes called minor planets or planetoids. Most asteroids are found in the asteroid belt, a region of space between Mars and Jupiter. Asteroids are made of rock, metals, and other elements. They have irregular shapes and are often pitted or cratered. Some asteroids are large enough to have their own moons.",
-            "enabled_sections": 0,
-            "eve_graphic_id": null,
-            "eve_group_id": 450,
-            "eve_market_group_id": null,
-            "icon_id": 1277,
-            "mass": 1e+35,
-            "id": 17425,
-            "name": "Crimson Arkonor",
-            "packaged_volume": 16,
-            "portion_size": 100,
-            "published": true,
-            "radius": 1,
-            "volume": 16
-        }
+        {"id":"19720","name":"Revelation","last_updated":"2024-06-10 09:21:00.239452","capacity":"2175","icon_id":null,"mass":"1290000000","packaged_volume":"1300000","portion_size":"1","radius":"1700","published":"1","volume":"18500000","eve_graphic_id":null,"eve_group_id":"485","eve_market_group_id":null,"enabled_sections":"0","description":""},
+        {"id":"19722","name":"Naglfar","last_updated":"2024-06-10 09:21:00.241050","capacity":"2900","icon_id":null,"mass":"1260000000","packaged_volume":"1300000","portion_size":"1","radius":"1700","published":"1","volume":"15500000","eve_graphic_id":null,"eve_group_id":"485","eve_market_group_id":null,"enabled_sections":"0","description":""},
+        {"id":"19724","name":"Moros","last_updated":"2024-06-10 09:21:00.270010","capacity":"2550","icon_id":null,"mass":"1250000000","packaged_volume":"1300000","portion_size":"1","radius":"1613","published":"1","volume":"17550000","eve_graphic_id":null,"eve_group_id":"485","eve_market_group_id":null,"enabled_sections":"0","description":""},
+        {"id":"19726","name":"Phoenix","last_updated":"2024-06-10 09:21:01.462624","capacity":"2750","icon_id":null,"mass":"1270000000","packaged_volume":"1300000","portion_size":"1","radius":"1700","published":"1","volume":"16250000","eve_graphic_id":null,"eve_group_id":"485","eve_market_group_id":null,"enabled_sections":"0","description":""},
+        {"id":"34339","name":"Moros Interbus Edition","last_updated":"2024-06-10 09:21:01.481854","capacity":"2550","icon_id":null,"mass":"1292500000","packaged_volume":"1300000","portion_size":"1","radius":"1613","published":"0","volume":"17550000","eve_graphic_id":null,"eve_group_id":"485","eve_market_group_id":null,"enabled_sections":"0","description":""},
+        {"id":"34341","name":"Naglfar Justice Edition","last_updated":"2024-06-10 09:21:01.517329","capacity":"2900","icon_id":null,"mass":"1127500000","packaged_volume":"1300000","portion_size":"1","radius":"1700","published":"0","volume":"15500000","eve_graphic_id":null,"eve_group_id":"485","eve_market_group_id":null,"enabled_sections":"0","description":""},
+        {"id":"34343","name":"Phoenix Wiyrkomi Edition","last_updated":"2024-06-10 09:21:01.529904","capacity":"2750","icon_id":null,"mass":"1320000000","packaged_volume":"1300000","portion_size":"1","radius":"1700","published":"0","volume":"16250000","eve_graphic_id":null,"eve_group_id":"485","eve_market_group_id":null,"enabled_sections":"0","description":""},
+        {"id":"34345","name":"Revelation Sarum Edition","last_updated":"2024-06-10 09:21:01.559250","capacity":"2175","icon_id":null,"mass":"1237500000","packaged_volume":"1300000","portion_size":"1","radius":"1700","published":"0","volume":"18500000","eve_graphic_id":null,"eve_group_id":"485","eve_market_group_id":null,"enabled_sections":"0","description":""},
+        {"id":"42124","name":"Vehement","last_updated":"2024-06-10 09:21:03.556196","capacity":"2550","icon_id":null,"mass":"1250000000","packaged_volume":"1300000","portion_size":"1","radius":"1613","published":"1","volume":"17550000","eve_graphic_id":null,"eve_group_id":"485","eve_market_group_id":null,"enabled_sections":"0","description":""},
+        {"id":"42243","name":"Chemosh","last_updated":"2024-06-10 09:21:03.560880","capacity":"2400","icon_id":null,"mass":"1290000000","packaged_volume":"1300000","portion_size":"1","radius":"1700","published":"1","volume":"18500000","eve_graphic_id":null,"eve_group_id":"485","eve_market_group_id":null,"enabled_sections":"0","description":""},
+        {"id":"45647","name":"Caiman","last_updated":"2024-06-10 09:21:05.245733","capacity":"2750","icon_id":null,"mass":"1270000000","packaged_volume":"1300000","portion_size":"1","radius":"1700","published":"1","volume":"16250000","eve_graphic_id":null,"eve_group_id":"485","eve_market_group_id":null,"enabled_sections":"0","description":""},
+        {"id":"52907","name":"Zirnitra","last_updated":"2024-06-10 09:21:05.265749","capacity":"2400","icon_id":null,"mass":"1100000000","packaged_volume":"1300000","portion_size":"1","radius":"1700","published":"1","volume":"18500000","eve_graphic_id":null,"eve_group_id":"485","eve_market_group_id":null,"enabled_sections":"1","description":""},
+        {"id":"73787","name":"Naglfar Fleet Issue","last_updated":"2024-06-10 09:21:05.289715","capacity":"2900","icon_id":null,"mass":"1260000000","packaged_volume":"1300000","portion_size":"1","radius":"1700","published":"1","volume":"15500000","eve_graphic_id":null,"eve_group_id":"485","eve_market_group_id":null,"enabled_sections":"0","description":""},
+        {"id":"73790","name":"Revelation Navy Issue","last_updated":"2024-06-10 09:21:05.317202","capacity":"2175","icon_id":null,"mass":"1290000000","packaged_volume":"1300000","portion_size":"1","radius":"1700","published":"1","volume":"18500000","eve_graphic_id":null,"eve_group_id":"485","eve_market_group_id":null,"enabled_sections":"0","description":""},
+        {"id":"73792","name":"Moros Navy Issue","last_updated":"2024-06-10 09:21:05.305508","capacity":"2550","icon_id":null,"mass":"1250000000","packaged_volume":"1300000","portion_size":"1","radius":"1613","published":"1","volume":"17550000","eve_graphic_id":null,"eve_group_id":"485","eve_market_group_id":null,"enabled_sections":"0","description":""},
+        {"id":"73793","name":"Phoenix Navy Issue","last_updated":"2024-06-10 09:21:05.328705","capacity":"2750","icon_id":null,"mass":"1270000000","packaged_volume":"1300000","portion_size":"1","radius":"1700","published":"1","volume":"16250000","eve_graphic_id":null,"eve_group_id":"485","eve_market_group_id":null,"enabled_sections":"0","description":""}
     ]
 }
