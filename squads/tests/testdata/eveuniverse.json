@@ -1,0 +1,244 @@
+{
+    "EveCategory": [
+        {
+            "id": 2,
+            "name": "Celestial",
+            "published": true
+        },
+        {
+            "id": 4,
+            "name": "Material",
+            "published": true
+        },
+        {
+            "id": 6,
+            "name": "Ship",
+            "published": true
+        },
+        {
+            "id": 16,
+            "name": "Skill",
+            "published": true
+        },
+        {
+            "id": 25,
+            "name": "Asteroid",
+            "published": true
+        },
+        {
+            "id": 65,
+            "name": "Structure",
+            "published": true
+        }
+    ],
+    "EveGroup": [
+        {
+            "eve_category_id": 2,
+            "id": 7,
+            "name": "Planet",
+            "published": false
+        },
+        {
+            "eve_category_id": 25,
+            "id": 450,
+            "name": "Arkonor",
+            "published": true
+        },
+        {
+            "id":485,
+            "name":"Dreadnought",
+            "last_updated":"2024-06-10 09:20:35.433772",
+            "published":1,
+            "eve_category_id":6
+        },
+        {
+            "id":1209,
+            "name":"Shields",
+            "last_updated":"2024-06-10 07:37:41.328074",
+            "published":1,
+            "eve_category_id":16
+        }
+    ],
+    "EveConstellation": [
+        {
+            "eve_region_id": 10000060,
+            "id": 20000699,
+            "name": "LSC-4P",
+            "position_x": -4.055529772550624e17,
+            "position_y": 6.744814196037672e16,
+            "position_z": -2.885111598682538e17
+        },
+        {
+            "eve_region_id": 10000042,
+            "id": 20000304,
+            "name": "Aldodan",
+            "position_x": -1.0747745827663346e+17,
+            "position_y": -6953093208971083.0,
+            "position_z": 4.036681485589451e+16
+        },
+        {
+            "eve_region_id": 10000030,
+            "id": 20000372,
+            "name": "Hed",
+            "position_x": -1.282693384263374e+17,
+            "position_y": 3.8212719069804984e+16,
+            "position_z": 7556108809294752.0
+        }
+    ],
+    "EveRegion": [
+        {
+            "description": "\"Never Again\"",
+            "id": 10000030,
+            "name": "Heimatar"
+        },
+        {
+            "description": "It has long been an established fact of civilization that wherever a seat of government lies, then so will a concentration of its subjects, the better to fuel the halls of bureaucracy.  In this, the Republic has been no exception and in locating their Parliament and Justice Department in the Gedulf constellation, they guaranteed a huge population influx.  This population needs supporting, and so some of the largest Matari corporations also have their head offices here, making the region bustle with activity, not unlike a large Metropolis.",
+            "id": 10000042,
+            "name": "Metropolis"
+        },
+        {
+            "description": "\"Never Again\"",
+            "id": 10000060,
+            "name": "Delve"
+        }
+    ],
+    "EveSolarSystem": [
+        {
+            "enabled_sections": 0,
+            "eve_constellation_id": 20000699,
+            "eve_star_id": null,
+            "id": 30004783,
+            "name": "N8D9-Z",
+            "position_x": -3.997667726720811e17,
+            "position_y": 6.678881359632571e16,
+            "position_z": -2.690098844885066e17,
+            "security_status": -0.47704941034317017
+        },
+        {
+            "enabled_sections": 0,
+            "eve_constellation_id": 20000304,
+            "eve_star_id": null,
+            "id": 30002063,
+            "name": "Helgatild",
+            "position_x": -9.933649837287458e+16,
+            "position_y": -1.0099325834620358e+16,
+            "position_z": 3.0712591164613148e+16,
+            "security_status": 0.151897594332695
+        },
+        {
+            "enabled_sections": 0,
+            "eve_constellation_id": 20000372,
+            "eve_star_id": null,
+            "id": 30002542,
+            "name": "Auga",
+            "position_x": -1.280818422914163e+17,
+            "position_y": 4.273309719085835e+16,
+            "position_z": 6568509050290774.0,
+            "security_status": 0.38548383116722107
+        }
+    ],
+    "EveType": [
+        {
+            "id":"3419",
+            "name":"Shield Management",
+            "last_updated":"2024-06-10 08:11:52.103282",
+            "capacity":"0",
+            "icon_id":"33",
+            "mass":"0",
+            "packaged_volume":"0.01",
+            "portion_size":"1",
+            "radius":"1",
+            "published":"1",
+            "volume":"0.01",
+            "eve_graphic_id":null,
+            "eve_group_id":"1209",
+            "eve_market_group_id":null,
+            "enabled_sections":"0",
+            "description":""
+        },
+        {
+            "id":"19720",
+            "name":"Revelation",
+            "last_updated":"2024-06-10 09:21:00.239452",
+            "capacity":"2175",
+            "icon_id":null,
+            "mass":"1290000000",
+            "packaged_volume":"1300000",
+            "portion_size":"1",
+            "radius":"1700",
+            "published":"1",
+            "volume":"18500000",
+            "eve_graphic_id":null,
+            "eve_group_id":"485",
+            "eve_market_group_id":null,
+            "enabled_sections":"0",
+            "description":""
+        },
+        {
+            "id":"19722",
+            "name":"Naglfar",
+            "last_updated":"2024-06-10 09:21:00.241050",
+            "capacity":"2900",
+            "icon_id":null,
+            "mass":"1260000000",
+            "packaged_volume":"1300000",
+            "portion_size":"1",
+            "radius":"1700",
+            "published":"1",
+            "volume":"15500000",
+            "eve_graphic_id":null,
+            "eve_group_id":"485",
+            "eve_market_group_id":null,
+            "enabled_sections":"0",
+            "description":""
+        },
+        {
+            "id":"19724",
+            "name":"Moros",
+            "last_updated":"2024-06-10 09:21:00.270010",
+            "capacity":"2550",
+            "icon_id":null,
+            "mass":"1250000000",
+            "packaged_volume":"1300000",
+            "portion_size":"1",
+            "radius":"1613",
+            "published":"1",
+            "volume":"17550000",
+            "eve_graphic_id":null,
+            "eve_group_id":"485",
+            "eve_market_group_id":null,
+            "enabled_sections":"0",
+            "description":""
+        },
+        {
+            "id":"19726",
+            "name":"Phoenix",
+            "last_updated":"2024-06-10 09:21:01.462624",
+            "capacity":"2750",
+            "icon_id":null,
+            "mass":"1270000000",
+            "packaged_volume":"1300000",
+            "portion_size":"1",
+            "radius":"1700",
+            "published":"1",
+            "volume":"16250000",
+            "eve_graphic_id":null,
+            "eve_group_id":"485",
+            "eve_market_group_id":null,
+            "enabled_sections":"0",
+            "description":""
+        },
+        {"id":"34339","name":"Moros Interbus Edition","last_updated":"2024-06-10 09:21:01.481854","capacity":"2550","icon_id":null,"mass":"1292500000","packaged_volume":"1300000","portion_size":"1","radius":"1613","published":"0","volume":"17550000","eve_graphic_id":null,"eve_group_id":"485","eve_market_group_id":null,"enabled_sections":"0","description":""},
+        {"id":"34341","name":"Naglfar Justice Edition","last_updated":"2024-06-10 09:21:01.517329","capacity":"2900","icon_id":null,"mass":"1127500000","packaged_volume":"1300000","portion_size":"1","radius":"1700","published":"0","volume":"15500000","eve_graphic_id":null,"eve_group_id":"485","eve_market_group_id":null,"enabled_sections":"0","description":""},
+        {"id":"34343","name":"Phoenix Wiyrkomi Edition","last_updated":"2024-06-10 09:21:01.529904","capacity":"2750","icon_id":null,"mass":"1320000000","packaged_volume":"1300000","portion_size":"1","radius":"1700","published":"0","volume":"16250000","eve_graphic_id":null,"eve_group_id":"485","eve_market_group_id":null,"enabled_sections":"0","description":""},
+        {"id":"34345","name":"Revelation Sarum Edition","last_updated":"2024-06-10 09:21:01.559250","capacity":"2175","icon_id":null,"mass":"1237500000","packaged_volume":"1300000","portion_size":"1","radius":"1700","published":"0","volume":"18500000","eve_graphic_id":null,"eve_group_id":"485","eve_market_group_id":null,"enabled_sections":"0","description":""},
+        {"id":"42124","name":"Vehement","last_updated":"2024-06-10 09:21:03.556196","capacity":"2550","icon_id":null,"mass":"1250000000","packaged_volume":"1300000","portion_size":"1","radius":"1613","published":"1","volume":"17550000","eve_graphic_id":null,"eve_group_id":"485","eve_market_group_id":null,"enabled_sections":"0","description":""},
+        {"id":"42243","name":"Chemosh","last_updated":"2024-06-10 09:21:03.560880","capacity":"2400","icon_id":null,"mass":"1290000000","packaged_volume":"1300000","portion_size":"1","radius":"1700","published":"1","volume":"18500000","eve_graphic_id":null,"eve_group_id":"485","eve_market_group_id":null,"enabled_sections":"0","description":""},
+        {"id":"45647","name":"Caiman","last_updated":"2024-06-10 09:21:05.245733","capacity":"2750","icon_id":null,"mass":"1270000000","packaged_volume":"1300000","portion_size":"1","radius":"1700","published":"1","volume":"16250000","eve_graphic_id":null,"eve_group_id":"485","eve_market_group_id":null,"enabled_sections":"0","description":""},
+        {"id":"52907","name":"Zirnitra","last_updated":"2024-06-10 09:21:05.265749","capacity":"2400","icon_id":null,"mass":"1100000000","packaged_volume":"1300000","portion_size":"1","radius":"1700","published":"1","volume":"18500000","eve_graphic_id":null,"eve_group_id":"485","eve_market_group_id":null,"enabled_sections":"1","description":""},
+        {"id":"73787","name":"Naglfar Fleet Issue","last_updated":"2024-06-10 09:21:05.289715","capacity":"2900","icon_id":null,"mass":"1260000000","packaged_volume":"1300000","portion_size":"1","radius":"1700","published":"1","volume":"15500000","eve_graphic_id":null,"eve_group_id":"485","eve_market_group_id":null,"enabled_sections":"0","description":""},
+        {"id":"73790","name":"Revelation Navy Issue","last_updated":"2024-06-10 09:21:05.317202","capacity":"2175","icon_id":null,"mass":"1290000000","packaged_volume":"1300000","portion_size":"1","radius":"1700","published":"1","volume":"18500000","eve_graphic_id":null,"eve_group_id":"485","eve_market_group_id":null,"enabled_sections":"0","description":""},
+        {"id":"73792","name":"Moros Navy Issue","last_updated":"2024-06-10 09:21:05.305508","capacity":"2550","icon_id":null,"mass":"1250000000","packaged_volume":"1300000","portion_size":"1","radius":"1613","published":"1","volume":"17550000","eve_graphic_id":null,"eve_group_id":"485","eve_market_group_id":null,"enabled_sections":"0","description":""},
+        {"id":"73793","name":"Phoenix Navy Issue","last_updated":"2024-06-10 09:21:05.328705","capacity":"2750","icon_id":null,"mass":"1270000000","packaged_volume":"1300000","portion_size":"1","radius":"1700","published":"1","volume":"16250000","eve_graphic_id":null,"eve_group_id":"485","eve_market_group_id":null,"enabled_sections":"0","description":""}
+    ]
+}

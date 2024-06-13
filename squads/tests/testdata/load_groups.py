@@ -46,19 +46,27 @@ def load_membership():
 
     group = Groups.objects.get(name="Group No Approve")
     user = User.objects.get(username="groupuser")
-    Memberships.objects.create(group=group, user=user, req_filters=False)
+    Memberships.objects.create(
+        group=group, user=user, req_filters=False, application_id="cf2605fa1ff1"
+    )
 
     group = Groups.objects.get(name="Group Approve")
     user = User.objects.get(username="groupuser2")
-    Memberships.objects.create(group=group, user=user, req_filters=True)
+    Memberships.objects.create(
+        group=group, user=user, req_filters=True, application_id="cf2605fa1ff2"
+    )
 
     group = Groups.objects.get(name="Group Staff")
     user = User.objects.get(username="groupuser3")
-    Memberships.objects.create(group=group, user=user, req_filters=False)
+    Memberships.objects.create(
+        group=group, user=user, req_filters=False, application_id="cf2605fa1ff3"
+    )
 
     group = Groups.objects.get(name="Group Superuser")
     user = User.objects.get(username="groupuser4")
-    Memberships.objects.create(group=group, user=user, req_filters=True)
+    Memberships.objects.create(
+        group=group, user=user, req_filters=True, application_id="cf2605fa1ff4"
+    )
 
 
 def load_pending():
@@ -67,23 +75,31 @@ def load_pending():
     group = Groups.objects.get(name="Group No Approve")
     user = User.objects.get(username="groupuser")
     Pending.objects.create(
-        group=group, user=user, req_filters=False, comment="Test Comment"
+        group=group,
+        user=user,
+        req_filters=False,
+        comment="Test Comment",
+        application_id="cf2605fa1ff1",
     )
 
     group = Groups.objects.get(name="Group Approve")
     user = User.objects.get(username="groupuser2")
     Pending.objects.create(
-        group=group, user=user, req_filters=True, comment="Test Comment"
+        group=group,
+        user=user,
+        req_filters=True,
+        comment="Test Comment",
+        application_id="cf2605fa1ff2",
     )
 
     group = Groups.objects.get(name="Group Staff")
     user = User.objects.get(username="groupuser3")
     Pending.objects.create(
-        group=group, user=user, req_filters=False, application_id="cf2605fa1ff7"
+        group=group, user=user, req_filters=False, application_id="cf2605fa1ff3"
     )
 
     group = Groups.objects.get(name="Group Superuser")
     user = User.objects.get(username="groupuser4")
     Pending.objects.create(
-        group=group, user=user, req_filters=True, application_id="c9ae498eb79c"
+        group=group, user=user, req_filters=True, application_id="cf2605fa1ff4"
     )

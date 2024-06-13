@@ -63,8 +63,9 @@ class SkillSetFilter(BaseFilter):
             skill_set__in=required_skills,
             failed_required_skills__isnull=True,
         )
-
+        print(user_skills)
         if not user_skills.exists():
+            print("No user skills")
             existing_skills = set(user_skills.values_list("skill_set", flat=True))
             missing_skills = required_skills - existing_skills
 
