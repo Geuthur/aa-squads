@@ -172,16 +172,11 @@ def edit_group(request, group_id):
         if form.is_valid():
             group_edit = form.save(commit=False)
             group_edit.description = mark_safe(group_edit.description)
-            print("valid")
             if not group_edit.image:
-                print("no image")
                 group_edit.image = SQUADS_EMPTY_IMAGE
-            print("saving")
             group_edit.save()
-            print("lul")
             messages.success(request, f"{group_data.name} has been updated.")
             return redirect("squads:manage_groups")
-        print("invalid")
         messages.error(request, "Something went wrong.")
         return render(
             request,

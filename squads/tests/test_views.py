@@ -1,5 +1,4 @@
 from http import HTTPStatus
-from unittest.mock import MagicMock, patch
 
 from django.contrib.auth.models import User
 from django.test import TestCase
@@ -11,16 +10,6 @@ from allianceauth.tests.auth_utils import AuthUtils
 from squads.tests.testdata.load_groups import load_groups
 from squads.tests.testdata.load_users import load_users
 from squads.views.main import squads_index, squads_membership, squads_pending
-from squads.views.manage import (
-    delete_group,
-    delete_membership,
-    edit_group,
-    manage_application_accept,
-    manage_application_decline,
-    manage_groups,
-    manage_members,
-    manage_pendings,
-)
 
 
 class TestViews(TestCase):
