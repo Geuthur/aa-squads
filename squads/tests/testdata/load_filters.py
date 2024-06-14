@@ -47,12 +47,12 @@ def load_filters():
     skill_set_filter.skill_sets.add(skill_set)
     skill_set_filter.save()
     filter2 = SquadFilter.objects.create(
-        object_id=skill_set_filter.id,  # Use the ID of the asset_filter instance
+        object_id=skill_set_filter.id,
         content_type=ContentType.objects.get_for_model(SkillSetFilter),
     )
 
     empty_filter = SquadFilter.objects.create(
-        object_id=999,  # Kein object_id und content_type gesetzt
+        object_id=999,
         content_type=ContentType.objects.get_for_model(SkillSetFilter),
     )
 

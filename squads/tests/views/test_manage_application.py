@@ -21,7 +21,7 @@ from squads.views.manage import (
 
 class TestManageApplicationManagement(TestCase):
     @classmethod
-    def setUpClass(cls):
+    def setUpClass(cls) -> None:
         super().setUpClass()
         load_users()
         load_groups()

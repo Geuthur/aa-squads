@@ -12,7 +12,7 @@ from squads.tests.testdata.load_users import load_users
 
 class TestTasks(TestCase):
     @classmethod
-    def setUpClass(self):
+    def setUpClass(cls) -> None:
         super().setUpClass()
         load_users()
         load_groups()

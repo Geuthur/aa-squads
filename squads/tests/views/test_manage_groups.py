@@ -16,7 +16,7 @@ from squads.views.manage import delete_group, edit_group, manage_groups
 
 class TestGroupManagement(TestCase):
     @classmethod
-    def setUpClass(cls):
+    def setUpClass(cls) -> None:
         super().setUpClass()
         load_users()
         load_groups()

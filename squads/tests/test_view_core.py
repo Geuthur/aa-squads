@@ -12,7 +12,7 @@ from squads.views import _core
 
 class CoreTests(TestCase):
     @classmethod
-    def setUpClass(cls):
+    def setUpClass(cls) -> None:
         super().setUpClass()
         load_users()
         cls.user = User.objects.get(username="groupuser")

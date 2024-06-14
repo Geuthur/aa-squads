@@ -65,7 +65,7 @@ class SkillSetFilterAdminTest(TestCase):
 
 class AssetFilterAdminTest(TestCase):
     @classmethod
-    def setUpClass(cls):
+    def setUpClass(cls) -> None:
         super().setUpClass()
         cls.site = AdminSite()
         load_users()
@@ -109,26 +109,28 @@ class AssetFilterAdminTest(TestCase):
 
 
 class ShipFilterAdminTest(TestCase):
-    def setUp(self):
+    @classmethod
+    def setUpClass(cls) -> None:
+        super().setUpClass()
         # Setup test environment
-        self.site = AdminSite()
+        cls.site = AdminSite()
         load_users()
         load_allianceauth()
         load_eveuniverse()
         load_memberaudit()
-        self.user = User.objects.get(username="groupuser4")
+        cls.user = User.objects.get(username="groupuser4")
 
         # Create test data
-        self.ship_filter = ShipFilter.objects.create(description="Test Filter")
-        self.character = Character.objects.first()
-        self.asset = CharacterAsset.objects.create(
+        cls.ship_filter = ShipFilter.objects.create(description="Test Filter")
+        cls.character = Character.objects.first()
+        cls.asset = CharacterAsset.objects.create(
             item_id=19722,
-            character=self.character,
+            character=cls.character,
             eve_type=EveType.objects.get(name="Naglfar"),
             quantity=1,
             is_singleton=False,
         )
-        self.ship_filter.ship.add(EveGroup.objects.get(id=485))
+        cls.ship_filter.ship.add(EveGroup.objects.get(id=485))
 
     def test_ship_display(self):
         self.client.force_login(self.user)
@@ -162,10 +164,12 @@ class ShipFilterAdminTest(TestCase):
 
 
 class SquadFilterAdminTest(TestCase):
-    def setUp(self):
+    @classmethod
+    def setUpClass(cls) -> None:
+        super().setUpClass()
         load_users()
-        self.site = AdminSite()
-        self.user = User.objects.get(username="groupuser4")
+        cls.site = AdminSite()
+        cls.user = User.objects.get(username="groupuser4")
 
     def test_has_add_permission(self):
         # Create an instance of the admin class
