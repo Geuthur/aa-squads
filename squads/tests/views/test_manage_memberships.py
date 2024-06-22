@@ -17,7 +17,7 @@ from squads.views.manage import delete_membership, manage_members
 
 class TestMembershipManagement(TestCase):
     @classmethod
-    def setUpClass(cls):
+    def setUpClass(cls) -> None:
         super().setUpClass()
         load_users()
         load_groups()

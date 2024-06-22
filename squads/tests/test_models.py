@@ -15,7 +15,7 @@ from squads.tests.testdata.load_users import load_users
 
 class GroupsModelTest(TestCase):
     @classmethod
-    def setUpClass(cls):
+    def setUpClass(cls) -> None:
         super().setUpClass()
         load_allianceauth()
         load_memberaudit()
@@ -47,7 +47,7 @@ class GroupsModelTest(TestCase):
 
 class MemberShipModelTest(TestCase):
     @classmethod
-    def setUpClass(cls):
+    def setUpClass(cls) -> None:
         super().setUpClass()
         load_allianceauth()
         load_memberaudit()
@@ -73,7 +73,7 @@ class MemberShipModelTest(TestCase):
 
 class PendingModelTest(TestCase):
     @classmethod
-    def setUpClass(cls):
+    def setUpClass(cls) -> None:
         super().setUpClass()
         load_allianceauth()
         load_memberaudit()
@@ -99,7 +99,7 @@ class PendingModelTest(TestCase):
 
 class FilterModelTest(TestCase):
     @classmethod
-    def setUpClass(cls):
+    def setUpClass(cls) -> None:
         super().setUpClass()
         load_allianceauth()
         load_eveuniverse()

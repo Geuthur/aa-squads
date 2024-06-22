@@ -17,7 +17,7 @@ from squads.views.groups import broswe_groups, create_group, view_group
 
 class GroupViewTests(TestCase):
     @classmethod
-    def setUpClass(cls):
+    def setUpClass(cls) -> None:
         super().setUpClass()
         load_users()
         load_groups()

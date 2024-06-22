@@ -14,7 +14,7 @@ from squads.tests.testdata.load_users import load_users
 
 class ManageApiEndpointsTest(TestCase):
     @classmethod
-    def setUpClass(cls):
+    def setUpClass(cls) -> None:
         super().setUpClass()
         load_allianceauth()
         load_users()

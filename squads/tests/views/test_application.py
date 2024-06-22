@@ -18,7 +18,7 @@ from squads.views.application import apply_group, cancel_group, leave_group
 
 class TestApplictaion(TestCase):
     @classmethod
-    def setUpClass(cls):
+    def setUpClass(cls) -> None:
         super().setUpClass()
         load_users()
         load_groups()
