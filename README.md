@@ -59,7 +59,7 @@ You can change the interval if you want.
 ```python
 CELERYBEAT_SCHEDULE["run_check_squads"] = {
     "task": "squads.tasks.run_check_squads",
-    "schedule": crontab(hour="*/12"),
+    "schedule": crontab(minute=0, hour="*/12"),
 }
 ```
 
