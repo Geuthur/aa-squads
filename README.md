@@ -5,6 +5,12 @@
 [![Checks](https://github.com/Geuthur/aa-squads/actions/workflows/autotester.yml/badge.svg)](https://github.com/Geuthur/aa-squads/actions/workflows/autotester.yml)
 [![codecov](https://codecov.io/gh/Geuthur/aa-squads/graph/badge.svg?token=yPAkMfj3cD)](https://codecov.io/gh/Geuthur/aa-squads)
 
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/W7W810Q5J4)
+
+Group Managing Tool with HTML Supportive Group creation.
+
+##
+
 - [AA Squads](#aa-squads)
   - [Features](#features)
   - [Upcoming](#upcoming)
