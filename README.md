@@ -38,7 +38,7 @@ Group Managing Tool with HTML Supportive Group creation.
 
 ## Installation<a name="installation"></a>
 
-> \[!NOTE\]
+> [!NOTE]
 > AA Squads needs at least Alliance Auth v4.0.0
 > Please make sure to update your Alliance Auth before you install this APP
 
@@ -90,8 +90,8 @@ With the Following IDs you can set up the permissions for the Squads
 
 The Following Settings can be setting up in the `local.py`
 
-- SQUADS_APP_NAME:          `"YOURNAME"`     - Set the name of the APP
-- SQUADS_LOGGER_USE:        `True / False`   - Set to use own Logger File
+- SQUADS_APP_NAME: `"YOURNAME"` - Set the name of the APP
+- SQUADS_LOGGER_USE: `True / False` - Set to use own Logger File
 
 If you set up SQUADS_LOGGER_USE to `True` you need to add the following code below:
 
@@ -128,7 +128,7 @@ LOGGING["loggers"].update(LOGGING_SQUADS["loggers"])
 ![Screenshot 2024-06-09 164508](https://github.com/Geuthur/aa-squads/assets/761682/c989d2ed-6602-441b-b903-b7f22ecf69c0)
 ![Screenshot 2024-06-10 235804](https://github.com/Geuthur/aa-squads/assets/761682/e0c816e6-2b5b-421f-add3-57628ad05004)
 
-> \[!NOTE\]
+> [!NOTE]
 > Contributing
 > You want to improve the project?
 > Just Make a [Pull Request](https://github.com/Geuthur/aa-squads/pulls) with the Guidelines.
