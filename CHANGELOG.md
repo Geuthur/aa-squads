@@ -1,12 +1,12 @@
 # Changelog
 
-## \[0.2.4\] - 2024-06-13
+## [0.2.4] - 2024-06-13
 
 ### Added
 
 - Many Tests
 
-## \[0.2.3\] - 2024-06-11
+## [0.2.3] - 2024-06-11
 
 ### Added
 
@@ -21,7 +21,7 @@
 - Memberships Renamed Fields
 - Pending Renamed Fields
 
-## \[0.2.2\] - 2024-06-11
+## [0.2.2] - 2024-06-11
 
 ### Added
 
@@ -39,7 +39,7 @@
 - Manage Squads Admins can't see Squads from other Owners
 - Update Is Active not working on edit
 
-## \[0.2.1\] - 2024-06-11
+## [0.2.1] - 2024-06-11
 
 ### Changed
 
@@ -49,7 +49,7 @@
 
 - Image Error on Update Squad
 
-## \[0.2.0\] - 2024-06-10
+## [0.2.0] - 2024-06-10
 
 ### Added
 
@@ -61,7 +61,7 @@
 - Form Issues
 - Filter Issues
 
-## \[0.1.9\] - 2024-06-10
+## [0.1.9] - 2024-06-10
 
 ### Added
 
@@ -79,7 +79,7 @@
 - Empty Squad Icon not shown
 - str not work correctly on Membership
 
-## \[0.1.8\] - 2024-06-10
+## [0.1.8] - 2024-06-10
 
 ### Added
 
@@ -91,7 +91,7 @@
 - Removed logger tests
 - Req. Skills Info on Manage Member Table
 
-## \[0.1.7\] - 2024-06-09
+## [0.1.7] - 2024-06-09
 
 ### Added
 
@@ -107,7 +107,7 @@
 
 - Wrong Naming on Pending, Browse Squads
 
-## \[0.1.3 - 0.1.5\] - 2024-06-09
+## [0.1.3 - 0.1.5] - 2024-06-09
 
 ### Added
 
@@ -118,7 +118,7 @@
 - Wrong Naming on Manage Squads
 - Squads module shown with no permission
 
-## \[0.1.2\] - 2024-06-09
+## [0.1.2] - 2024-06-09
 
 ### Added
 
@@ -129,7 +129,7 @@
 - Update Permissions
 - Added Squad Manager & Squad Admin
 
-## \[0.1.2\] - 2024-06-09
+## [0.1.2] - 2024-06-09
 
 ### Added
 
