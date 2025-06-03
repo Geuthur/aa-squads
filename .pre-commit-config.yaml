@@ -123,7 +123,7 @@ repos:
           )
 
   - repo: https://github.com/eslint/eslint
-    rev: v9.26.0
+    rev: v9.28.0
     hooks:
       - id: eslint
         name: ESLint
@@ -135,7 +135,7 @@ repos:
           )
 
   - repo: https://github.com/thibaudcolas/pre-commit-stylelint
-    rev: v16.19.1
+    rev: v16.20.0
     hooks:
       - id: stylelint
         name: Stylelint
@@ -193,7 +193,7 @@ repos:
           )
 
   - repo: https://github.com/adamchainz/django-upgrade
-    rev: 1.24.0
+    rev: 1.25.0
     hooks:
       - id: django-upgrade
         name: Django upgrade
@@ -202,7 +202,7 @@ repos:
           - --target-version=4.2  # Minimum supported Django version for AA. Update as needed.
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.19.1
+    rev: v3.20.0
     hooks:
       - id: pyupgrade
         name: PyUpgrade
@@ -283,7 +283,7 @@ repos:
         description: Format the tox.ini file.
 
   - repo: https://github.com/tox-dev/pyproject-fmt
-    rev: v2.5.1
+    rev: v2.6.0
     hooks:
       - id: pyproject-fmt
         name: pyproject.toml formatter
