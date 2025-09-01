@@ -24,7 +24,7 @@ ci:
 # pre-commit setup
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+    rev: v6.0.0
     hooks:
       # Identify invalid files
       - id: check-ast
@@ -123,7 +123,7 @@ repos:
           )
 
   - repo: https://github.com/eslint/eslint
-    rev: v9.32.0
+    rev: v9.34.0
     hooks:
       - id: eslint
         name: ESLint
@@ -135,7 +135,7 @@ repos:
           )
 
   - repo: https://github.com/thibaudcolas/pre-commit-stylelint
-    rev: v16.23.0
+    rev: v16.23.1
     hooks:
       - id: stylelint
         name: Stylelint
@@ -180,7 +180,7 @@ repos:
         description: Enforce that python3.6+ type annotations are used instead of type comments.
 
   - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
-    rev: 3.2.1
+    rev: 3.4.0
     hooks:
       - id: editorconfig-checker
         name: EditorConfig Checker
@@ -193,7 +193,7 @@ repos:
           )
 
   - repo: https://github.com/adamchainz/django-upgrade
-    rev: 1.25.0
+    rev: 1.27.0
     hooks:
       - id: django-upgrade
         name: Django upgrade
@@ -301,7 +301,7 @@ repos:
         description: Validate the pyproject.toml file.
 
   - repo: https://github.com/pylint-dev/pylint
-    rev: v3.3.7
+    rev: v3.3.8
     hooks:
       - id: pylint
         name: Pylint
@@ -310,7 +310,7 @@ repos:
           - --py-version=3.8  # Minimum required Python version for AA. Update as needed.
 
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.33.2
+    rev: 0.33.3
     hooks:
       - id: check-github-actions
         name: Check GitHub Actions
