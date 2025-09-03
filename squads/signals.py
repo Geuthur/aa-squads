@@ -1,7 +1,10 @@
+# Django
 from django.db.models.signals import post_save, pre_delete
 
+# Alliance Auth
 from allianceauth import hooks
 
+# AA Squads
 from squads.hooks import get_extension_logger
 from squads.models import filters as model
 

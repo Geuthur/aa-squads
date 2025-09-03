@@ -1,13 +1,17 @@
+# Standard Library
 from unittest import TestCase
 from unittest.mock import MagicMock
 
+# Django
 from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db import models
 from django.db.models.fields.files import ImageField, ImageFieldFile
 
+# Alliance Auth (External Libs)
 from app_utils.testing import create_user_from_evecharacter
 
+# AA Squads
 from squads.forms import CustomClearableFileInput, SquadsGroupForm
 from squads.models import Groups
 from squads.tests.testdata.load_allianceauth import load_allianceauth

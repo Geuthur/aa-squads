@@ -1,11 +1,16 @@
 # Import necessary modules and classes
+# Third Party
 from memberaudit.models import Character
 
+# Django
 from django.contrib.admin.sites import AdminSite
 from django.contrib.auth.models import User
 from django.test import TestCase
+
+# Alliance Auth (External Libs)
 from eveuniverse.models import EveGroup, EveType
 
+# AA Squads
 from squads.admin import (
     AssetsFilterAdmin,
     ShipFilterForm,

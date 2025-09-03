@@ -1,8 +1,10 @@
 """App Tasks"""
 
+# Third Party
 from celery import chain as Chain
 from celery import shared_task
 
+# AA Squads
 from squads.hooks import get_extension_logger
 from squads.models import Groups, Memberships, Pending
 from squads.models.filters import SquadGroup

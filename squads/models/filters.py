@@ -2,6 +2,7 @@
 Memberships Model
 """
 
+# Third Party
 from memberaudit.models import (
     CharacterAsset,
     CharacterSkill,
@@ -10,13 +11,17 @@ from memberaudit.models import (
     SkillSetSkill,
 )
 
+# Django
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+
+# Alliance Auth (External Libs)
 from eveuniverse.models import EveGroup, EveType
 
+# AA Squads
 from squads.hooks import get_extension_logger
 from squads.models.groups import Groups
 

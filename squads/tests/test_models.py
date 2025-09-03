@@ -1,9 +1,13 @@
+# Standard Library
 from unittest.mock import PropertyMock, patch
 
+# Django
 from django.test import TestCase
 
+# Alliance Auth (External Libs)
 from app_utils.testing import create_user_from_evecharacter
 
+# AA Squads
 from squads.models import Groups, Memberships, Pending, filters
 from squads.tests.testdata.load_allianceauth import load_allianceauth
 from squads.tests.testdata.load_eveuniverse import load_eveuniverse

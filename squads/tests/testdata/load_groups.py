@@ -1,11 +1,14 @@
 """Generate AllianceAuth test objects from allianceauth.json."""
 
+# Standard Library
 import json
 import random
 from pathlib import Path
 
+# Django
 from django.contrib.auth.models import User
 
+# AA Squads
 from squads.models.groups import Groups
 from squads.models.member import Memberships, Pending
 

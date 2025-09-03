@@ -1,5 +1,7 @@
+# Django
 from django.test import TestCase
 
+# AA Squads
 from squads.errors import CustomError, DatabaseError, MemberNotActive, TokenDoesNotExist
 
 

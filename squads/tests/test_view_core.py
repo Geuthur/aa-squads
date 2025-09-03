@@ -1,9 +1,12 @@
+# Standard Library
 import time
 from unittest.mock import patch
 
+# Django
 from django.contrib.auth.models import User
 from django.test import RequestFactory, TestCase
 
+# AA Squads
 from squads.models.groups import Groups
 from squads.tests.testdata.load_users import load_users
 from squads.view_helpers.core import generate_unique_id

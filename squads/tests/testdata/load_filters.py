@@ -1,3 +1,4 @@
+# Third Party
 from memberaudit.models import (
     Character,
     CharacterSkill,
@@ -6,9 +7,13 @@ from memberaudit.models import (
     SkillSetSkill,
 )
 
+# Django
 from django.contrib.contenttypes.models import ContentType
+
+# Alliance Auth (External Libs)
 from eveuniverse.models import EveGroup, EveType
 
+# AA Squads
 from squads.models.filters import (
     AssetsFilter,
     CharacterAsset,

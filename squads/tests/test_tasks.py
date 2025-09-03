@@ -1,8 +1,11 @@
+# Standard Library
 from unittest.mock import MagicMock, patch
 
+# Django
 from django.contrib.auth.models import User
 from django.test import TestCase
 
+# AA Squads
 from squads.models.groups import Groups
 from squads.models.member import Memberships, Pending
 from squads.tasks import run_check_members, run_check_pendings, run_check_squads

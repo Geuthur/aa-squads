@@ -1,7 +1,10 @@
+# Standard Library
 from unittest.mock import MagicMock, patch
 
+# Django
 from django.test import TestCase
 
+# AA Squads
 from squads.models.filters import AssetsFilter, SkillSetFilter
 from squads.signals import HookCache, new_filter, rem_filter
 

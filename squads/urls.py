@@ -1,8 +1,10 @@
 """App URLs"""
 
+# Django
 from django.urls import path, re_path
 from django.views.static import serve
 
+# AA Squads
 from squads.api import api
 from squads.views.application import apply_group, cancel_group, leave_group
 from squads.views.groups import broswe_groups, create_group, view_group

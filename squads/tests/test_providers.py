@@ -1,7 +1,10 @@
+# Standard Library
 from unittest.mock import patch
 
+# Django
 from django.test import TestCase
 
+# AA Squads
 from squads import __title__, __version__
 
 
@@ -10,6 +13,7 @@ class TestEsiClientProviderInitialization(TestCase):
     def test_esi_client_provider_initialization(self, mock_esi_client_provider):
         # The esi instance is created when the module is imported, so we need to reload it
         # to apply the mocks. This requires the importlib module.
+        # AA Squads
         import squads.providers
 
         # Assert that EsiClientProvider was called with the correct app_info_text

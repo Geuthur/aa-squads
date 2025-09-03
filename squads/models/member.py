@@ -2,11 +2,14 @@
 Memberships Model
 """
 
+# Django
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+# Alliance Auth
 from allianceauth.authentication.models import User
 
+# AA Squads
 from squads.hooks import get_extension_logger
 from squads.models.groups import Groups
 from squads.view_helpers.core import generate_unique_id
