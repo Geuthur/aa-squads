@@ -5,7 +5,7 @@ from unittest.mock import patch
 from django.test import TestCase
 
 # AA Squads
-from squads import __title__, __version__
+from squads import __app_name_useragent__, __github_url__, __title__, __version__
 
 
 class TestEsiClientProviderInitialization(TestCase):
@@ -16,7 +16,9 @@ class TestEsiClientProviderInitialization(TestCase):
         # AA Squads
         import squads.providers
 
-        # Assert that EsiClientProvider was called with the correct app_info_text
+        # Assert that EsiClientProvider was called with the correct arguments
         mock_esi_client_provider.assert_called_once_with(
-            app_info_text=f"{__title__} v{__version__}"
+            ua_appname=__app_name_useragent__,
+            ua_version=__version__,
+            ua_url=__github_url__,
         )

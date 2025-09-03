@@ -62,6 +62,7 @@ INSTALLED_APPS += [
     "allianceauth.services.modules.discord",
     PACKAGE,
     "eveuniverse",
+    "memberaudit",
 ]
 # By default, apps are prevented from having public views for security reasons.
 # If you want to allow specific apps to have public views,
