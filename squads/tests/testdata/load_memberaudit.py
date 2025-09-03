@@ -1,10 +1,13 @@
 """Generate AllianceAuth test objects from allianceauth.json."""
 
+# Standard Library
 import json
 from pathlib import Path
 
+# Third Party
 from memberaudit.models import Character
 
+# Alliance Auth
 from allianceauth.eveonline.models import EveCharacter
 
 

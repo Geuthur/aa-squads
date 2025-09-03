@@ -2,11 +2,14 @@
 Groups Model
 """
 
+# Django
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+# Alliance Auth
 from allianceauth.authentication.models import User
 
+# AA Squads
 from squads.hooks import get_extension_logger
 from squads.managers import GroupsManager
 

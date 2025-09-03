@@ -1,9 +1,13 @@
+# Standard Library
 from unittest.mock import patch
 
+# Django
 from django.test import TestCase
 
+# Alliance Auth (External Libs)
 from app_utils.esi import EsiDailyDowntime
 
+# AA Squads
 from squads.decorators import when_esi_is_available
 
 

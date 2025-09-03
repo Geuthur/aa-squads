@@ -6,9 +6,12 @@ Test settings
 # local.py settings
 # Every setting in base.py can be overloaded by redefining it here.
 
+# AA Squads
+from squads import __app_name__
+
 from .base import *
 
-PACKAGE = "squads"
+PACKAGE = __app_name__
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
@@ -17,7 +20,7 @@ STATICFILES_DIRS = [
     f"{PACKAGE}/static",
 ]
 
-SITE_URL = "http://127.0.0.1:8000"
+SITE_URL = "http://localhost:8000"
 CSRF_TRUSTED_ORIGINS = [SITE_URL]
 
 DISCORD_BOT_TOKEN = "My_Dummy_Token"
@@ -36,25 +39,27 @@ SITE_NAME = "testauth"
 # Change this to enable/disable debug mode, which displays
 # useful error messages but can leak sensitive data.
 DEBUG = False
+LOGGING = None
 
 NOTIFICATIONS_REFRESH_TIME = 30
 NOTIFICATIONS_MAX_PER_USER = 50
 
-# Enter credentials to use MySQL/MariaDB. Comment out to use sqlite3
-DATABASES["default"] = {
-    "ENGINE": "django.db.backends.mysql",
-    "NAME": "alliance_auth",
-    "USER": "root",
-    "PASSWORD": "temp_password_aa_tox_tests",
-    "HOST": "127.0.0.1",
-    "PORT": "3306",
-    "OPTIONS": {"charset": "utf8mb4"},
-}
+# Use the USE_MYSQL environment variable to select the database backend (MySQL or Memcached).
+# NOTE: On Windows, set this variable in the system/user environment variables.
+if os.environ.get("USE_MYSQL", True) is True:
+    DATABASES["default"] = {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "temp_allianceauth",
+        "USER": "root",
+        "PASSWORD": "temp_password_aa_tox_tests",
+        "HOST": "127.0.0.1",
+        "PORT": "3306",
+        "OPTIONS": {"charset": "utf8mb4"},
+    }
 
 # Add any additional apps to this list.
 INSTALLED_APPS += [
-    #'allianceauth.theme.bootstrap',
-    "allianceauth.corputils",
+    "allianceauth.services.modules.discord",
     PACKAGE,
     "eveuniverse",
     "memberaudit",
@@ -113,7 +118,5 @@ DEFAULT_FROM_EMAIL = ""
 # Add any custom settings below here. #
 #######################################
 
-# workarounds to suppress warnings
-LOGGING = None
-STATICFILES_DIRS = []
-ANALYTICS_DISABLED = True
+# Discord
+DISCORD_GUILD_ID = "1234567890123456789"

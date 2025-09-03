@@ -1,7 +1,7 @@
-from typing import List
-
+# Third Party
 from ninja import NinjaAPI
 
+# AA Squads
 from squads.api import schema
 from squads.hooks import get_extension_logger
 from squads.models.groups import Groups
@@ -17,7 +17,7 @@ class ManageApiEndpoints:
     def __init__(self, api: NinjaAPI):
         @api.get(
             "groups/{group_id}/pendings/",
-            response={200: List[schema.Pending], 403: str},
+            response={200: list[schema.Pending], 403: str},
             tags=self.tags,
         )
         def get_pendings(request, group_id: int):
@@ -50,7 +50,7 @@ class ManageApiEndpoints:
 
         @api.get(
             "groups/{group_id}/members/",
-            response={200: List[schema.Members], 403: str},
+            response={200: list[schema.Members], 403: str},
             tags=self.tags,
         )
         def get_members(request, group_id: int):
@@ -82,7 +82,7 @@ class ManageApiEndpoints:
 
         @api.get(
             "groups/{group_id}/",
-            response={200: List[schema.Squads], 403: str},
+            response={200: list[schema.Squads], 403: str},
             tags=self.tags,
         )
         def get_squads(request, group_id: int):

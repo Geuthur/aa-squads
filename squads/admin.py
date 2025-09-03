@@ -1,13 +1,18 @@
 """Admin models"""
 
+# Standard Library
 from typing import Any
 
+# Django
 from django import forms
 from django.contrib import admin
 from django.db.models.query import QuerySet
 from django.http.request import HttpRequest
+
+# Alliance Auth (External Libs)
 from eveuniverse.models import EveGroup
 
+# AA Squads
 from squads.models.filters import (
     AssetsFilter,
     ShipFilter,

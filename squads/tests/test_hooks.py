@@ -1,7 +1,10 @@
+# Standard Library
 from unittest.mock import MagicMock
 
+# Django
 from django.test import TestCase
 
+# AA Squads
 from squads.auth_hooks import SquadsMenuItem
 from squads.hooks import get_extension_logger
 

@@ -1,14 +1,18 @@
+# Standard Library
 from http import HTTPStatus
 from unittest.mock import MagicMock, patch
 
+# Django
 from django.contrib.auth.models import User
 from django.contrib.staticfiles import finders
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.urls import reverse
 
+# Alliance Auth
 from allianceauth.tests.auth_utils import AuthUtils
 
+# AA Squads
 from squads.models import Groups
 from squads.tests.testdata.load_groups import load_groups
 from squads.tests.testdata.load_users import load_users
@@ -99,6 +103,7 @@ class GroupViewTests(TestCase):
     @patch("squads.views.groups.SquadsGroupForm")
     def test_create_group_with_image(self, mock_group, mock_messages):
         # given
+        # Django
         from django.core.files.uploadedfile import SimpleUploadedFile
 
         self.client.force_login(self.user)

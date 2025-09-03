@@ -3,7 +3,7 @@
 # Django
 from django.apps import AppConfig
 
-# AA Example App
+# AA Squads
 from squads import __version__
 
 
@@ -18,4 +18,5 @@ class SquadsConfig(AppConfig):
     verbose_name = f"Squads v{__version__}"
 
     def ready(self):
+        # AA Squads
         import squads.signals

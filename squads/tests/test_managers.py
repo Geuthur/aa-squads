@@ -1,8 +1,11 @@
+# Django
 from django.contrib.auth.models import Permission
 from django.test import TestCase
 
+# Alliance Auth (External Libs)
 from app_utils.testing import create_user_from_evecharacter
 
+# AA Squads
 from squads.models.groups import Groups
 from squads.tests.testdata.load_allianceauth import load_allianceauth
 

@@ -1,12 +1,16 @@
+# Standard Library
 from http import HTTPStatus
 
+# Django
 from django.contrib.auth.models import User
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.urls import reverse
 
+# Alliance Auth
 from allianceauth.tests.auth_utils import AuthUtils
 
+# AA Squads
 from squads.tests.testdata.load_groups import load_groups
 from squads.tests.testdata.load_users import load_users
 from squads.views.main import squads_index, squads_membership, squads_pending

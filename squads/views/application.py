@@ -1,9 +1,11 @@
 """Manage views."""
 
+# Django
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import get_object_or_404, redirect
 
+# AA Squads
 from squads.forms import CommentForm
 from squads.hooks import get_extension_logger
 from squads.models.groups import Groups
