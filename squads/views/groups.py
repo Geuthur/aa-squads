@@ -1,5 +1,6 @@
 """Groups views."""
 
+# Django
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
@@ -7,6 +8,7 @@ from django.db import transaction
 from django.shortcuts import redirect, render
 from django.utils.safestring import mark_safe
 
+# AA Squads
 from squads.app_settings import SQUADS_EMPTY_IMAGE
 from squads.forms import CommentForm, SquadsGroupForm
 from squads.hooks import get_extension_logger

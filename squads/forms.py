@@ -1,13 +1,16 @@
 """Forms for the Squads app."""
 
+# Third Party
 import bleach
 from bleach.css_sanitizer import CSSSanitizer
 
+# Django
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms.widgets import ClearableFileInput
 from django.utils.translation import gettext_lazy as _
 
+# AA Squads
 from squads.hooks import get_extension_logger
 
 from .models import Groups

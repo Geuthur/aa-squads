@@ -1,7 +1,9 @@
 """AA Hooks"""
 
+# Standard Library
 import logging
 
+# AA Squads
 from squads.app_settings import SQUADS_LOGGER_USE
 
 

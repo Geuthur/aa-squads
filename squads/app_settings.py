@@ -2,7 +2,7 @@
 App Settings
 """
 
-# Django
+# Alliance Auth (External Libs)
 from app_utils.app_settings import clean_setting
 
 TESTING_MODE = False

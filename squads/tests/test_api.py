@@ -1,9 +1,13 @@
+# Third Party
 from ninja import NinjaAPI
 
+# Django
 from django.test import TestCase
 
+# Alliance Auth (External Libs)
 from app_utils.testing import create_user_from_evecharacter
 
+# AA Squads
 from squads.api.groups import ManageApiEndpoints
 from squads.models import Groups, Pending
 from squads.models.member import Memberships

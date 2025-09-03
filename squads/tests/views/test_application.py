@@ -1,14 +1,18 @@
+# Standard Library
 from http import HTTPStatus
 from unittest.mock import patch
 
+# Django
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.urls import reverse
 
+# Alliance Auth
 from allianceauth.tests.auth_utils import AuthUtils
 
+# AA Squads
 from squads.models.groups import Groups
 from squads.models.member import Memberships, Pending
 from squads.tests.testdata.load_groups import load_groups

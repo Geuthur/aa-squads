@@ -30,11 +30,5 @@ export default [
             semi: [2, 'always'],
             'no-unused-vars': 'off',
         },
-        ignores: [
-            'squads/static/squads/js/icons/monocons.js',
-            'squads/static/squads/js/icons/material.js',
-            'squads/static/squads/js/formats/xhtml.js',
-            'squads/static/squads/js/formats/bbcode.js',
-        ],
     }
 ];

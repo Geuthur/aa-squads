@@ -1,7 +1,11 @@
 """Shared ESI client for Voices of War."""
 
+# Alliance Auth
 from esi.clients import EsiClientProvider
 
-from squads import __title__, __version__
+# AA Squads
+from squads import __app_name_useragent__, __github_url__, __title__, __version__
 
-esi = EsiClientProvider(app_info_text=f"{__title__} v{__version__}")
+esi = EsiClientProvider(
+    ua_appname=__app_name_useragent__, ua_version=__version__, ua_url=__github_url__
+)
