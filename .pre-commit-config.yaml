@@ -124,7 +124,7 @@ repos:
         args: [--fix, --color, --max-warnings, '0']
 
   - repo: https://github.com/thibaudcolas/pre-commit-stylelint
-    rev: v16.14.1
+    rev: v16.23.0
     hooks:
       - id: stylelint
         name: Stylelint
@@ -171,7 +171,7 @@ repos:
         description: Check for compliance with the definitions in the EditorConfig file.
 
   - repo: https://github.com/adamchainz/django-upgrade
-    rev: 1.22.2
+    rev: 1.25.0
     hooks:
       - id: django-upgrade
         name: Django upgrade
@@ -283,7 +283,7 @@ repos:
           - --py-version=3.10  # Minimum required Python version for AA. Update as needed.
 
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.31.1
+    rev: 0.33.3
     hooks:
       - id: check-github-actions
         name: Check GitHub Actions
