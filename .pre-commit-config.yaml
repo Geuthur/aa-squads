@@ -124,7 +124,7 @@ repos:
         args: [--fix, --color, --max-warnings, '0']
 
   - repo: https://github.com/thibaudcolas/pre-commit-stylelint
-    rev: v16.23.0
+    rev: v16.23.1
     hooks:
       - id: stylelint
         name: Stylelint
@@ -171,7 +171,7 @@ repos:
         description: Check for compliance with the definitions in the EditorConfig file.
 
   - repo: https://github.com/adamchainz/django-upgrade
-    rev: 1.25.0
+    rev: 1.27.0
     hooks:
       - id: django-upgrade
         name: Django upgrade
@@ -189,7 +189,7 @@ repos:
           - --py310-plus  # Minimum required Python version for AA. Update as needed.
 
   - repo: https://github.com/pycqa/flake8
-    rev: 7.1.1
+    rev: 7.3.0
     hooks:
       - id: flake8
         name: Flake8
@@ -256,7 +256,7 @@ repos:
         description: Format the tox.ini file.
 
   - repo: https://github.com/tox-dev/pyproject-fmt
-    rev: v2.5.0
+    rev: v2.6.0
     hooks:
       - id: pyproject-fmt
         name: pyproject.toml formatter
